@@ -129,19 +129,19 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
 
                             console.log(i + "____________________");
                             if (best === false) {
-                                $("#basic-label").text(basic);
-                                $("#basic-details").text(package + " * " + perc + "%");
-                                console.log("Basic: " + basic);
-                                $("#housing-label").text(housing);
-                                $("#housing-details").text(basic + " * 25%");
-                                $("#grade-label").text(grade);
-                                console.log("Housing: " + housing);
-                                console.log("Grade: " + grade + ", Grade total: " + value);
-                                console.log("Package Offer: " + total);
-                                $("#total-label").text(total);
-                                //$("#total-details").text("Grade " + grade + " [ " + value + " + " + basic + " + " + housing + " ]");
-                                $("#total-details").text("Grade " + grade + " [ " + value + " ]");
-                                console.log("____________________");
+                                // $("#basic-label").text(basic);
+                                // $("#basic-details").text(package + " * " + perc + "%");
+                                // console.log("Basic: " + basic);
+                                // $("#housing-label").text(housing);
+                                // $("#housing-details").text(basic + " * 25%");
+                                // $("#grade-label").text(grade);
+                                // console.log("Housing: " + housing);
+                                // console.log("Grade: " + grade + ", Grade total: " + value);
+                                // console.log("Package Offer: " + total);
+                                // $("#total-label").text(total);
+                                // //$("#total-details").text("Grade " + grade + " [ " + value + " + " + basic + " + " + housing + " ]");
+                                // $("#total-details").text("Grade " + grade + " [ " + value + " ]");
+                                // console.log("____________________");
                             }
 
                             if (basic == 20000 && jQuery.inArray(perc, percent_list) !== -1) {
@@ -155,7 +155,7 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                                     diff_class = 'pos'
                                 }
 
-                                $('#details-table > tbody:last').append('<tr><th scope="row">' + band + '</th><td>' + grade + '</td><td><input type="number" value="' + basic + '" id="basic' + i + '" style="width: 100px;" class="basic-cl" /></td><td>' + perc + '%</td><td>' + housing + '</td><td>' + sdetails[index][0] + '</td><td>' + sdetails[index][1] + '</td><td>' + sdetails[index][2] + '</td><td>' + sdetails[index][3] + '</td><td>' + sdetails[index][4] + '</td><td>' + sdetails[index][5] + '</td><td>' + sdetails[index][6] + '</td><td>0</td><td>' + total + '</td><td class="diff-val ' + diff_class + '">' + diff + '</td></tr>');
+                                // $('#details-table > tbody:last').append('<tr><th scope="row">' + band + '</th><td>' + grade + '</td><td><input type="number" value="' + basic + '" id="basic' + i + '" style="width: 100px;" class="basic-cl" /></td><td>' + perc + '%</td><td>' + housing + '</td><td>' + sdetails[index][0] + '</td><td>' + sdetails[index][1] + '</td><td>' + sdetails[index][2] + '</td><td>' + sdetails[index][3] + '</td><td>' + sdetails[index][4] + '</td><td>' + sdetails[index][5] + '</td><td>' + sdetails[index][6] + '</td><td>0</td><td>' + total + '</td><td class="diff-val ' + diff_class + '">' + diff + '</td></tr>');
                                 percent_list.push(perc);
                                 
                                 if (index == 0) {
@@ -221,24 +221,24 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                     }
                     
                     
-                    $('#details-table-actual > tbody:last').append('<tr><th scope="row">' + band + '</th><td>' + grade + '</td><td>' + basic + '</td><td>' + perc + '%</td><td>' + housing + '</td><td>' + sdetails[index][0] + '</td><td>' + sdetails[index][1] + '</td><td>' + sdetails[index][2] + '</td><td>' + sdetails[index][3] + '</td><td>' + sdetails[index][4] + '</td><td>' + sdetails[index][5] + '</td><td>' + sdetails[index][6] + '</td><td>0</td><td>' + total + '</td><td class="diff-val">0</td></tr>');
+                    // $('#details-table-actual > tbody:last').append('<tr><th scope="row">' + band + '</th><td>' + grade + '</td><td>' + basic + '</td><td>' + perc + '%</td><td>' + housing + '</td><td>' + sdetails[index][0] + '</td><td>' + sdetails[index][1] + '</td><td>' + sdetails[index][2] + '</td><td>' + sdetails[index][3] + '</td><td>' + sdetails[index][4] + '</td><td>' + sdetails[index][5] + '</td><td>' + sdetails[index][6] + '</td><td>0</td><td>' + total + '</td><td class="diff-val">0</td></tr>');
                     
            
                     // Print the best choice
                     if (e === 1) {
-                        $("#basic-label").text(basic);
-                        $("#basic-details").text(package + " * " + perc + "%");
-                        console.log("Basic: " + basic);
-                        $("#housing-label").text(housing);
-                        $("#housing-details").text(basic + " * 25%");
-                        $("#grade-label").text(grade);
-                        console.log("Housing: " + housing);
-                        console.log("Grade: " + grade + ", Grade total: " + structure[index]);
-                        console.log("Package Offer: " + total);
-                        $("#total-label").text(total);
-                        //$("#total-details").text("Grade " + grade + " [ " + value + " + " + basic + " + " + housing + " ]");
-                        $("#total-details").text("Grade " + grade + " [ " + structure[index] + " ]");
-                        console.log("____________________");
+                        // $("#basic-label").text(basic);
+                        // $("#basic-details").text(package + " * " + perc + "%");
+                        // console.log("Basic: " + basic);
+                        // $("#housing-label").text(housing);
+                        // $("#housing-details").text(basic + " * 25%");
+                        // $("#grade-label").text(grade);
+                        // console.log("Housing: " + housing);
+                        // console.log("Grade: " + grade + ", Grade total: " + structure[index]);
+                        // console.log("Package Offer: " + total);
+                        // $("#total-label").text(total);
+                        // //$("#total-details").text("Grade " + grade + " [ " + value + " + " + basic + " + " + housing + " ]");
+                        // $("#total-details").text("Grade " + grade + " [ " + structure[index] + " ]");
+                        // console.log("____________________");
                     }
                     
                     
@@ -312,20 +312,20 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                 if (best_val['percent'] > 0) {
                     console.log(i + "____________________");
                     if (best === false) {
-                        $("#basic-label").text(best_val['basic']);
-                        $("#basic-details").text(package + " * " + best_val['percent'] + "%");
-                        $("#housing-label").text(best_val['housing']);
-                        $("#housing-details").text(best_val['basic'] + " * 25%");
-                        console.log("Housing: " + best_val['housing']);
-                        $("#grade-label").text(best_val['grade']);
+                        // $("#basic-label").text(best_val['basic']);
+                        // $("#basic-details").text(package + " * " + best_val['percent'] + "%");
+                        // $("#housing-label").text(best_val['housing']);
+                        // $("#housing-details").text(best_val['basic'] + " * 25%");
+                        // console.log("Housing: " + best_val['housing']);
+                        // $("#grade-label").text(best_val['grade']);
 
-                        console.log("Package Offer: " + best_val['total']);
-                        $("#total-label").text(best_val['total'] + best_val['diff']);
+                        // console.log("Package Offer: " + best_val['total']);
+                        // $("#total-label").text(best_val['total'] + best_val['diff']);
                         
-                        //$("#total-details").text("Grade " + grade + " [ " + value + " + " + basic + " + " + housing + " ]");
-                        // $("#total-details").text("Grade " + best_val['grade']);
-                        $("#total-details").text("Grade " + best_val['grade'] + " [ " + best_val['pkg_value'] + " ]");
-                        console.log("____________________");
+                        // //$("#total-details").text("Grade " + grade + " [ " + value + " + " + basic + " + " + housing + " ]");
+                        // // $("#total-details").text("Grade " + best_val['grade']);
+                        // $("#total-details").text("Grade " + best_val['grade'] + " [ " + best_val['pkg_value'] + " ]");
+                        // console.log("____________________");
                     }
 
                     band = "";
@@ -339,8 +339,8 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                         }
                     best_val['total'] += best_val['diff'];
                     var best_grade = best_val['grade'];
-                    $('#details-table > tbody:last').append('<tr><th scope="row">' + band + '</th><td>' + best_val['grade'] + '</td><td>' + best_val['basic'] + '</td><td>' + best_val['percent'] + '%</td><td>' + best_val['housing'] + '</td><td>' + sdetails[best_grade - 1][0] + '</td><td>' + sdetails[best_grade - 1][1] + '</td><td>' + sdetails[best_grade - 1][2] + '</td><td>' + sdetails[best_grade - 1][3] + '</td><td>' + sdetails[best_grade - 1][4] + '</td><td>' + sdetails[best_grade - 1][5] + '</td><td>' + sdetails[best_grade - 1][6] + '</td><td>' + best_val['diff'] + '</td><td>' + best_val['total'] + '</td><td>0</td></tr>');
-                    $('#special-allow-label').text(best_val['diff']);
+                    // $('#details-table > tbody:last').append('<tr><th scope="row">' + band + '</th><td>' + best_val['grade'] + '</td><td>' + best_val['basic'] + '</td><td>' + best_val['percent'] + '%</td><td>' + best_val['housing'] + '</td><td>' + sdetails[best_grade - 1][0] + '</td><td>' + sdetails[best_grade - 1][1] + '</td><td>' + sdetails[best_grade - 1][2] + '</td><td>' + sdetails[best_grade - 1][3] + '</td><td>' + sdetails[best_grade - 1][4] + '</td><td>' + sdetails[best_grade - 1][5] + '</td><td>' + sdetails[best_grade - 1][6] + '</td><td>' + best_val['diff'] + '</td><td>' + best_val['total'] + '</td><td>0</td></tr>');
+                    // $('#special-allow-label').text(best_val['diff']);
                     best = true;
                 }
             }
@@ -359,17 +359,13 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
 
         var maxBasicP = 60;
 
+        var sal  = calcCTC(offerCtc, negativeDiff, positiveDiff, minBasicP, maxBasicP);
 
 		
     if($mj.isNumeric(inputCTC) )
 	{ 
 
-		if (inputlevel != 'selectlevel' && inputfieldBakoff != 'select' ) {
 
-
-		
-
-        var sal  = calcCTC(offerCtc, negativeDiff, positiveDiff, minBasicP, maxBasicP);
 
         for( var key in sal){
 
@@ -418,13 +414,6 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
 			alert("Please Select Level & structure");
 		}
 	
-
-	}		 
-	else
-		{
-			alert("Please enter a numeric value!");
-		}
-			
       
        });
 	
