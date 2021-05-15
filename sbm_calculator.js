@@ -7,1341 +7,357 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
 
 	var $mj = jQuery.noConflict();
 
-	$mj(document).ready(function(){
+	$mj(document).ready(function() {
 
+		var calcCTC =  function(offerCtc, negativeDiff, positiveDiff, minBasicP, maxBasicP) {
 
-		var calcCTC =  function(offerCtc, inputlevel, inputfieldBakoff,inputPP_per){
+				var package = parseFloat(offerCtc);
+                var neg = parseInt(negativeDiff) * -1;
+                var pos = parseInt(positiveDiff);
 
-				var inputCTC_an = offerCtc;
-				var level = inputlevel;
-				var selectMode = inputfieldBakoff;
-				var pp_per = parseFloat(inputPP_per);
+                var pneg = parseInt(minBasicP);
+                var ppos = parseInt(maxBasicP);
+				
+                if (pneg > ppos) {
+                    var x = pneg;
+                    pneg = ppos;
+                    ppos = x;
+                }
+                console.log(neg + ":: " + pos);
 
 				CTCcalculation = {
-					
-						'BasicSal_mon':0,
-						'BasicSal_an':0,
-						'hra_mon':0,
-						'hra_an':0,
-						'conveyance_an':0,
-						'conveyance_mon':0,
-						'medicalReimbursment_ann':0,
-						'medicalReimbursment_mon':0,
-						'personalAllowance_mon':0,
-						'personalAllowance_an':0,
-						'fixedPay_mon':0,
-						'fixedPay_ann':0,
-						'pf_ann':0,
-						'pf_mon':0,
-						'lta_mon':0,
-						'lta_an':0,
-						'annualCTC_an':0,
-						'gratuity_mon':0,
-						'gratuity_ann':0,
-						'AnnualCTCgratuity_mon':0,
-						'AnnualCTCgratuity_an':0,
-						'performancePay_mon':0,
-						'performancePay_an':0,
-						'half_performancePay_mon':0,
-						'retirals_mon':0,
-						'retirals_an':0,
-						'flexi_mon':0,
-						'flexi_an':0,
-						'ctc_mon':0,
-						'ctc_an':0,
-						'annualGross_ann':0,
-						'annualGross_mon':0,
-						'esic_an':0,
-						'esic_mon':0,
-						'BasicSal_mon1':0,
-						'BasicSal_an1':0,
-						'hra_mon1':0,
-						'hra_an1':0,
-						'personalAllowance_mon1':0,
-						'personalAllowance_an1':0,
-						'fixedPay_mon1':0,
-						'lta_mon1':0,
-						'lta_an1':0,
-						'pf_mon1':0,
-						'pf_ann1':0,
-						'gratuity_mon1':0,
-						'gratuity_an1':0,
-						'flexi_mon1':0,
-						'flexi_an1':0,
-						'annualCTC_mon1':0,
-						'annualCTC_an1':0,
-						'AnnualCTCgratuity_mon1':0,
-						'AnnualCTCgratuity_an1':0,
-						'half_performancePay_mon1':0,
-						'ctc_mon1':0,
-						'ctc_an1':0
-
-						
-						
-						
-						}
-				
-
-//updated on: 05/02/2021
-				if (selectMode == 'field' && (level =='L7O' || level =='L8O')) {
-
-						
-					var performance = {
-
-						'L7O': 0,
-						
-						'L8O': 0,
-						'L9O': 0
-
-					}	
-
-					var annualCTCGratuity ={
-
-						'L7O': (inputCTC_an - performance[level] ),
-						
-						'L8O': (inputCTC_an - performance[level] ),
-						'L9O': (inputCTC_an - performance[level] )
-					}	
-
-					var basic = {
-
-						'L7O': ((annualCTCGratuity[level] * 36) / 100 ),
-						
-						'L8O': ((annualCTCGratuity[level] * 36) / 100 ),
-						'L9O': ((annualCTCGratuity[level] * 36) / 100 ),
-					}
-
-					var hra = {
-
-						'L7O': ((annualCTCGratuity[level] * 18) / 100 ),
-						
-						'L8O': ((annualCTCGratuity[level] * 18) / 100 ),
-						'L9O': ((annualCTCGratuity[level] * 18) / 100 ),
-
-					}	
-
-					var conveyance = {
-
-						'L7O': 1600,
-						
-						'L8O': 1600,
-						'L9O': 1600
-
-					}
-
-						
-					var medical = {
-
-						'L7O': 1250,
-						
-						'L8O': 1250,
-						'L9O': 1250
-					}
-
-					
-					var lta ={
-
-						'L7O': ((annualCTCGratuity[level] * 4.5) / 100 ),
-						
-						'L8O': ((annualCTCGratuity[level] * 4.5) / 100 ),
-						'L9O': ((annualCTCGratuity[level] * 4.5) / 100 )
-					}			
-
-					
-
-					if(inputCTC_an>272000){
-
-					var personalAllowance = {
-
-						'L7O': Math.round(48557+87189+41500-83000	),
-						
-						'L8O': Math.round(48557+87189+41500-83000+153899),
-						'L9O': Math.round(48557+87189+41500)
-					}
-					
-
-					var pf ={
-
-						'L7O': (basic[level]/12) >15000 ? ((basic[level] * 12) /100) : ((basic[level]+ personalAllowance[level])/12) > 15000 ? (180000 * .12) : (basic[level]+ personalAllowance[level]) * .12,
-						
-						'L8O': (basic[level]/12) >15000 ? ((basic[level] * 12) /100) : ((basic[level]+ personalAllowance[level])/12) > 15000 ? (180000 * .12) : (basic[level]+ personalAllowance[level]) * .12,
-						'L9O': Math.round((basic[level] * 12) /100) * 12
-					}
-
-					var gratuity = {
-
-						'L7O': (basic[level]) >180000? ((basic[level]/12) * 15/26): (pf[level] == 180000 * .12) ? (15000) *15 /26 : ((basic[level]+ personalAllowance[level])/12) * 15/26,
-						
-						'L8O': (basic[level]) >180000? ((basic[level]/12) * 15/26): (pf[level] == 180000 * .12) ? (15000) *15 /26 : ((basic[level]+ personalAllowance[level])/12) * 15/26,
-						'L9O': Math.round((basic[level] * 15/26))
-
-					}
-					var personalAllowance2 = {
-
-						'L7O':  Math.round(0.415*inputCTC_an-gratuity['L7O']-pf['L7O']),
-						
-						'L8O': Math.round(0.415*inputCTC_an-gratuity['L8O']-pf['L8O']),
-						'L9O': Math.round(48557+87189+41500)
-					}
-					}
-					//end of if condition
-					else
-					{
-						var personalAllowance = {
-
-						'L7O': Math.round(((inputCTC_an-lta[level]-hra[level])/1.16808)-basic[level]),
-						
-						'L8O': Math.round(((inputCTC_an-lta[level]-hra[level])/1.16808)-basic[level]),
-						'L9O': Math.round(48557+87189+41500)
-					}
-					
-
-					var pf ={    
-
-						'L7O': (basic[level]/12) >15000 ? ((basic[level] * 12) /100) : ((basic[level]+ personalAllowance[level])/12) > 15000 ? (180000 * .12) : (basic[level]+ personalAllowance[level]) * .12,
-						
-						'L8O': (basic[level]/12) >15000 ? ((basic[level] * 12) /100) : ((basic[level]+ personalAllowance[level])/12) > 15000 ? (180000 * .12) : (basic[level]+ personalAllowance[level]) * .12,
-						'L9O': Math.round((basic[level] * 12) /100) * 12
-					}
-
-					var gratuity = {
-
-						'L7O': (basic[level]) >180000? ((basic[level]/12) * 15/26): (pf[level] == 180000 * .12) ? (15000) *15 /26 : ((basic[level]+ personalAllowance[level])/12) * 15/26,
-						
-						'L8O': (basic[level]) >180000? ((basic[level]/12) * 15/26): (pf[level] == 180000 * .12) ? (15000) *15 /26 : ((basic[level]+ personalAllowance[level])/12) * 15/26,
-						'L9O': Math.round((basic[level] * 15/26))
-
-					}
-					var personalAllowance2 = {
-
-						'L7O':  personalAllowance[level],
-						
-						'L8O':  personalAllowance[level],
-						'L9O': Math.round(48557+87189+41500)
-					}
-					}
-					//alert(personalAllowance2['L8O']);
-					var anualCTC = {
-
-						'L7O': annualCTCGratuity[level] - gratuity[level],
-						
-						'L8O': annualCTCGratuity[level] - gratuity[level],
-						'L9O': annualCTCGratuity[level] - gratuity[level]
-
-					}
-
-					var fixedPay = {
-
-						'L7O': basic[level]+hra[level]+personalAllowance2[level],
-						
-						'L8O': basic[level]+hra[level]+personalAllowance2[level],
-						'L9O': anualCTC[level] - pf[level] - lta[level]
-
-					}
-// 					alert(fixedPay[level]);
-					
-					CTCcalculation['BasicSal_an'] = basic[level];					
-					CTCcalculation['BasicSal_mon'] = CTCcalculation['BasicSal_an'] / 12;
-					CTCcalculation['hra_an'] = hra[level];
-					CTCcalculation['hra_mon'] = CTCcalculation['hra_an'] / 12;
-					CTCcalculation['conveyance_mon'] = 0;
-					CTCcalculation['conveyance_an'] = CTCcalculation['conveyance_mon'] * 12;
-					CTCcalculation['medicalReimbursment_mon'] = 0;
-					CTCcalculation['medicalReimbursment_ann'] = CTCcalculation['medicalReimbursment_mon'] *12;
-					CTCcalculation['personalAllowance_an'] = personalAllowance2[level];
-					CTCcalculation['personalAllowance_mon'] = CTCcalculation['personalAllowance_an'] / 12;
-
-					CTCcalculation['fixedPay_ann'] = fixedPay[level];
-					CTCcalculation['fixedPay_mon'] = CTCcalculation['fixedPay_ann'] /12;
-					CTCcalculation['pf_ann'] = pf[level];
-					CTCcalculation['pf_mon'] = CTCcalculation['pf_ann'] /12;
-					CTCcalculation['lta_an'] = lta[level];
-					CTCcalculation['lta_mon'] = CTCcalculation['lta_an']/12;
-
-					CTCcalculation['annualCTC_an'] = anualCTC[level];
-					CTCcalculation['annualCTC_mon'] = CTCcalculation['annualCTC_an']/12;
-
-
-					CTCcalculation['gratuity_ann'] = gratuity[level]*12;
-					CTCcalculation['gratuity_an'] = CTCcalculation['gratuity_ann']/12;
-					CTCcalculation['gratuity_mon'] = CTCcalculation['gratuity_an']/12;
-					
-					CTCcalculation['performancePay_an'] =  0;
-					CTCcalculation['performancePay_mon'] = CTCcalculation['performancePay_an'] /12;
-					CTCcalculation['half_performancePay_mon'] = (level == 'L7M' )? (40  * performance[level])/100 :0;
-					CTCcalculation['ctc_an'] = inputCTC_an;
-					CTCcalculation['ctc_mon'] = CTCcalculation['ctc_an']/12;
-
-
-					CTCcalculation['BasicSal_mon1'] = CTCcalculation['BasicSal_mon'];
-					CTCcalculation['BasicSal_an1'] = CTCcalculation['BasicSal_an'];
-					CTCcalculation['hra_mon1'] = CTCcalculation['hra_mon'];
-					CTCcalculation['hra_an1'] = CTCcalculation['hra_an'];
-					CTCcalculation['personalAllowance_mon1'] = CTCcalculation['personalAllowance_mon'];
-					CTCcalculation['personalAllowance_an1'] = CTCcalculation['personalAllowance_an'];
-					CTCcalculation['fixedPay_mon1'] = CTCcalculation['fixedPay_mon'];
-					CTCcalculation['lta_mon1'] = CTCcalculation['lta_mon'];
-					CTCcalculation['lta_an1'] = CTCcalculation['lta_an'];
-					CTCcalculation['pf_mon1'] = CTCcalculation['pf_mon'];
-					CTCcalculation['pf_ann1'] = CTCcalculation['pf_ann'];
-					CTCcalculation['gratuity_mon1'] = CTCcalculation['gratuity_mon'];
-					CTCcalculation['gratuity_an1'] = CTCcalculation['gratuity_an'];
-					CTCcalculation['flexi_mon1'] = CTCcalculation['flexi_mon'];
-					CTCcalculation['flexi_an1'] = CTCcalculation['flexi_an'];
-					CTCcalculation['annualCTC_mon1'] = CTCcalculation['annualCTC_mon'];
-					CTCcalculation['annualCTC_an1'] = CTCcalculation['annualCTC_an'];
-					CTCcalculation['AnnualCTCgratuity_mon1'] = CTCcalculation['AnnualCTCgratuity_mon'];
-					CTCcalculation['AnnualCTCgratuity_an1'] = CTCcalculation['AnnualCTCgratuity_an'];
-					CTCcalculation['half_performancePay_mon1'] = CTCcalculation['half_performancePay_mon'];
-					CTCcalculation['ctc_mon1'] = CTCcalculation['ctc_mon'];
-					CTCcalculation['ctc_an1'] = CTCcalculation['ctc_an'];
-					
-				
+                    "basicSal_mon": 0,
+                    "basicSal_ann": 0,
+                    "carAllowance_mon": 0,
+                    "carAllowance_ann": 0,
+                    "houseAllowance_mon": 0,
+                    "houseAllowance_ann": 0,
+                    "specialAllowance_mon": 0,
+                    "specialAllowance_ann": 0,
+                    "positionAllowance_mon": 0,
+                    "positionAllowance_ann": 0,
+                    "subTotalA_mon": 0,
+                    "subTotalA_ann": 0
 				}
-
-				else if (selectMode == 'backOffice' && (level =='L7O' || level =='L8O') ) {
-
-
-
-						
-
-					var performance = {
-
-						'L7O': isNaN(pp_per) ? (inputCTC_an * 20 )/100 : (inputCTC_an * inputPP_per )/100 ,
-						
-						'L8O': isNaN(pp_per) ? (inputCTC_an * 20 )/100 : (inputCTC_an * inputPP_per )/100
-						
-
-					}	
-
-					var annualCTCGratuity ={
-
-						'L7O': (inputCTC_an - performance[level] ),
-						
-						'L8O': (inputCTC_an - performance[level] )
-						
-					}	
-
-					var basic = {
-
-						'L7O': ((annualCTCGratuity[level] * 36) / 100 ),
-						
-						'L8O': ((annualCTCGratuity[level] * 36) / 100 ),
-						
-					}
-
-					var hra = {
-
-						'L7O': ((annualCTCGratuity[level] * 18) / 100 ),
-						
-						'L8O': ((annualCTCGratuity[level] * 18) / 100 ),
-						
-
-					}	
-
-					var conveyance = {
-
-						'L7O': 1600,
-						
-						'L8O': 1600,
-						
-
-					}
-
-						
-					var medical = {
-
-						'L7O': 1250,
-						
-						'L8O': 1250,
-						
-					}
-
-					
-					var lta ={
-
-						'L7O': ((annualCTCGratuity[level] * 4.5) / 100 ),
-						
-						'L8O': ((annualCTCGratuity[level] * 4.5) / 100 )
-						
-					}			
-
-					
-
-					if(inputCTC_an>339000){
-
-					var personalAllowance = {
-
-						'L7O': Math.round(48557+87189+147848-174325+192049),
-						
-						'L8O': Math.round(48557+87189+147848-174325+192049),
-						
-					}
-
-					var pf ={
-
-						'L7O': (basic[level]/12) >15000 ? ((basic[level] * 12) /100) : ((basic[level]+ personalAllowance[level])/12) > 15000 ? (180000 * .12) : (basic[level]+ personalAllowance[level]) * .12,
-						
-						'L8O': (basic[level]/12) >15000 ? ((basic[level] * 12) /100) : ((basic[level]+ personalAllowance[level])/12) > 15000 ? (180000 * .12) : (basic[level]+ personalAllowance[level]) * .12,
-						
-					}
-
-					var gratuity = {
-
-						'L7O': (basic[level]) >180000? ((basic[level]/12) * 15/26): (pf[level] == 180000 * .12) ? (15000) *15 /26 : ((basic[level]+ personalAllowance[level])/12) * 15/26,
-						
-						'L8O': (basic[level]) >180000? ((basic[level]/12) * 15/26): (pf[level] == 180000 * .12) ? (15000) *15 /26 : ((basic[level]+ personalAllowance[level])/12) * 15/26,
-						
-
-					}
-					var personalAllowance2 = {
-
-						'L7O': Math.round(0.415*inputCTC_an-gratuity['L7O']-pf['L7O']-0.415*performance['L7O']),
-						
-						'L8O': Math.round(0.415*inputCTC_an-gratuity['L8O']-pf['L8O']-0.415*performance['L8O']),
-						'L9O': Math.round(48557+87189+41500)
-					}
-					}
-					//end of if condition
-					//for input ctc less than 3,39,000
-					else
-					{
-						var personalAllowance = {
-
-						'L7O': Math.round(((inputCTC_an-performance[level]-lta[level]-hra[level])/1.16808)-basic[level]),
-						
-						'L8O': Math.round(((inputCTC_an-performance[level]-lta[level]-hra[level])/1.16808)-basic[level]),
-						
-					}
-
-
-					var pf ={
-
-						'L7O': (basic[level]/12) >15000 ? ((basic[level] * 12) /100) : ((basic[level]+ personalAllowance[level])/12) > 15000 ? (180000 * .12) : (basic[level]+ personalAllowance[level]) * .12,
-						
-						'L8O': (basic[level]/12) >15000 ? ((basic[level] * 12) /100) : ((basic[level]+ personalAllowance[level])/12) > 15000 ? (180000 * .12) : (basic[level]+ personalAllowance[level]) * .12,
-						
-					}
-
-					var gratuity = {
-
-						'L7O': (basic[level]) >180000? ((basic[level]/12) * 15/26): (pf[level] == 180000 * .12) ? (15000) *15 /26 : ((basic[level]+ personalAllowance[level])/12) * 15/26,
-						
-						'L8O': (basic[level]) >180000? ((basic[level]/12) * 15/26): (pf[level] == 180000 * .12) ? (15000) *15 /26 : ((basic[level]+ personalAllowance[level])/12) * 15/26,
-						
-
-					}
-					var personalAllowance2 = {
-
-						'L7O': personalAllowance[level],
-						
-						'L8O': personalAllowance[level],
-						'L9O': Math.round(48557+87189+41500)
-					}
-
-					}
-                      
-
-					var anualCTC = {
-
-						'L7O': annualCTCGratuity[level] - gratuity[level],
-						
-						'L8O': annualCTCGratuity[level] - gratuity[level],
-						
-
-					}
-
-					var fixedPay = {
-
-						'L7O':  basic[level]+hra[level]+personalAllowance2[level],
-						
-						'L8O':  basic[level]+hra[level]+personalAllowance2[level],
-						
-
-					}
-					
-					CTCcalculation['BasicSal_an'] = basic[level];
-					CTCcalculation['BasicSal_mon'] = CTCcalculation['BasicSal_an'] / 12;
-					CTCcalculation['hra_an'] = hra[level];
-					CTCcalculation['hra_mon'] = CTCcalculation['hra_an'] / 12;
-					CTCcalculation['conveyance_mon'] = 0;
-					CTCcalculation['conveyance_an'] = CTCcalculation['conveyance_mon'] * 12;
-					CTCcalculation['medicalReimbursment_mon'] = 0;
-					CTCcalculation['medicalReimbursment_ann'] = CTCcalculation['medicalReimbursment_mon'] *12;
-					CTCcalculation['personalAllowance_an'] = personalAllowance2[level];
-					CTCcalculation['personalAllowance_mon'] = CTCcalculation['personalAllowance_an'] / 12;
-					CTCcalculation['fixedPay_ann'] = fixedPay[level];
-					CTCcalculation['fixedPay_mon'] = CTCcalculation['fixedPay_ann'] /12;
-					CTCcalculation['pf_ann'] = pf[level];
-					CTCcalculation['pf_mon'] = CTCcalculation['pf_ann'] /12;
-					CTCcalculation['lta_an'] = lta[level];
-					CTCcalculation['lta_mon'] = CTCcalculation['lta_an']/12;
-					CTCcalculation['annualCTC_an'] = anualCTC[level];
-					CTCcalculation['annualCTC_mon'] = CTCcalculation['annualCTC_an']/12;
-					CTCcalculation['gratuity_ann'] = gratuity[level]*12;
-					CTCcalculation['gratuity_an'] = CTCcalculation['gratuity_ann']/12;
-					CTCcalculation['gratuity_mon'] = CTCcalculation['gratuity_an']/12;
-
-					CTCcalculation['AnnualCTCgratuity_an'] = annualCTCGratuity[level];
-					CTCcalculation['AnnualCTCgratuity_mon'] =CTCcalculation['AnnualCTCgratuity_an']/12;
-
-					CTCcalculation['performancePay_an'] =  (level == 'L7M') ? ( performance[level]  * 60) /100  : performance[level];
-					CTCcalculation['performancePay_mon'] = CTCcalculation['performancePay_an'] /12;
-					CTCcalculation['half_performancePay_mon'] = (level == 'L7M' )? (40  * performance[level])/100 :0;
-					CTCcalculation['ctc_an'] = inputCTC_an;
-					CTCcalculation['ctc_mon'] = CTCcalculation['ctc_an']/12;
-
-
-
-
-					CTCcalculation['BasicSal_mon1'] = CTCcalculation['BasicSal_mon'];
-					CTCcalculation['BasicSal_an1'] = CTCcalculation['BasicSal_an'];
-					CTCcalculation['hra_mon1'] = CTCcalculation['hra_mon'];
-					CTCcalculation['hra_an1'] = CTCcalculation['hra_an'];
-					CTCcalculation['personalAllowance_mon1'] = CTCcalculation['personalAllowance_mon'];
-					CTCcalculation['personalAllowance_an1'] = CTCcalculation['personalAllowance_an'];
-					CTCcalculation['fixedPay_mon1'] = CTCcalculation['fixedPay_mon'];
-					CTCcalculation['lta_mon1'] = CTCcalculation['lta_mon'];
-					CTCcalculation['lta_an1'] = CTCcalculation['lta_an'];
-					CTCcalculation['pf_mon1'] = CTCcalculation['pf_mon'];
-					CTCcalculation['pf_ann1'] = CTCcalculation['pf_ann'];
-					CTCcalculation['gratuity_mon1'] = CTCcalculation['gratuity_mon'];
-					CTCcalculation['gratuity_an1'] = CTCcalculation['gratuity_an'];
-					CTCcalculation['flexi_mon1'] = CTCcalculation['flexi_mon'];
-					CTCcalculation['flexi_an1'] = CTCcalculation['flexi_an'];
-					CTCcalculation['annualCTC_mon1'] = CTCcalculation['annualCTC_mon'];
-					CTCcalculation['annualCTC_an1'] = CTCcalculation['annualCTC_an'];
-					CTCcalculation['AnnualCTCgratuity_mon1'] = CTCcalculation['AnnualCTCgratuity_mon'];
-					CTCcalculation['AnnualCTCgratuity_an1'] = CTCcalculation['AnnualCTCgratuity_an'];
-					CTCcalculation['half_performancePay_mon1'] = CTCcalculation['half_performancePay_mon'];
-					CTCcalculation['ctc_mon1'] = CTCcalculation['ctc_mon'];
-					CTCcalculation['ctc_an1'] = CTCcalculation['ctc_an'];
-					
 				
-				
-
-				}
-
-				else if (selectMode == 'backOffice' && level =='L9O' ) {
+                var structure = [1750, 2600, 3550, 4100, 5450, 7550, 9450, 11850, 13950, 17600];
+                //var structure = [1750, 2600, 3550, 4100, 5450, 7550, 9450, 11850, 13950, 17600, 23750, 27000];
 
 
+                var sdetails = [
+                    [400, 250, 300, 650, 50, 50, 50],
+                    [600, 500, 600, 650, 100, 100, 50],
+                    [800, 1000, 800, 650, 100, 150, 50],
+                    [1000, 1000, 1000, 650, 150, 200, 100],
+                    [1200, 1250, 1800, 650, 200, 200, 150],
+                    [1500, 2000, 2400, 650, 400, 400, 200],
+                    [1800, 2500, 3500, 650, 400, 400, 200],
+                    [2400, 2500, 5000, 650, 500, 500, 300],
+                    [2800, 3500, 5500, 650, 500, 600, 400],
+                    [4800, 3400, 6250, 650, 1000, 1000, 500],
+                            //[6250,3750,7500,2500,1250,1250,1250],
+                            //[7000,5000,8000,2500,1500,1500,1500],
+                ];
 
+                var bands = [
+                    [1500, 3200],
+                    [3060, 5400],
+                    [5355, 7560],
+                    [7497, 10584],
+                    [9146, 13989],
+                    [11159, 17066],
+                    [13613, 20821],
+                    [16608, 25401],
+                    [19100, 29211],
+                    [22481, 33593]
+                ];
 
-						
+                var basic = 0;
+                var housing = 0;
+                var total = 0;
+                var grade = 0;
+                var best = false;
+                var band = 0;
+                var percent_list = new Array();
+                var diff = 0;
+                var diff_class = "";
+                
+                var perc = 0;
+                var actual = [];
+                for (var i = pneg; i <= ppos; i++) {
+                    //i += 0.1;
+                    perc = i;
+                    basic = (package * i) / 100;
+                    if (basic > 20000) {
+                        basic = 20000;
+                        perc = ((20000 / package) * 100).toFixed(2);
+                    }
 
-					var performance = {
+                    housing = basic * 0.25;
 
-						
-						'L9O': isNaN(pp_per) ? (inputCTC_an * 20 )/100 : (inputCTC_an * inputPP_per )/100 ,
-						
+                    basic = Math.round(basic);
+                    housing = Math.round(housing);
 
-					}
+            //         console.log("Basic: " + basic);
+            //         console.log("Housing: " + housing);
+                    console.log(i + "**************************");
+                    total = 0;
+                    $.each(structure, function (index, value) {
+                        grade = index + 1;
+                        console.log(grade + ": " + value);
+                        total = basic + housing + value;
 
+                        band = "";
+                        for (var j = 0; j < bands.length; j++) {
+                            if (basic >= bands[j][0] && basic <= bands[j][1]) {
+                                if (band == "") {
+                                    band += parseInt(j + 1);
+                                } else {
+                                    band += ", " + parseInt(j + 1);
+                                }
+                            }
+                        }
 
+                        if (total >= (package - neg) && total <= (package + pos)) {
+                                                
+                            //Formula is x+(x*0.25) = total_package - grade_total
+                            // x = ((total_package - grade_total)*4)/5
+                            var bbsaic = ((package - value)*4)/5;
+                            if (bbsaic < 20000) {
+                                actual[grade] = bbsaic;
+                            }
 
-					var annualCTCGratuity ={
+                            console.log(i + "____________________");
+                            if (best === false) {
+                                $("#basic-label").text(basic);
+                                $("#basic-details").text(package + " * " + perc + "%");
+                                console.log("Basic: " + basic);
+                                $("#housing-label").text(housing);
+                                $("#housing-details").text(basic + " * 25%");
+                                $("#grade-label").text(grade);
+                                console.log("Housing: " + housing);
+                                console.log("Grade: " + grade + ", Grade total: " + value);
+                                console.log("Package Offer: " + total);
+                                $("#total-label").text(total);
+                                //$("#total-details").text("Grade " + grade + " [ " + value + " + " + basic + " + " + housing + " ]");
+                                $("#total-details").text("Grade " + grade + " [ " + value + " ]");
+                                console.log("____________________");
+                            }
 
-						
-						'L9O': (inputCTC_an - performance[level] )
-					}	
+                            if (basic == 20000 && jQuery.inArray(perc, percent_list) !== -1) {
+                                //do nothing
+                            } else {
+                                diff = total - package;
+                                diff_class = "";
+                                if (diff < 0) {
+                                    diff_class = 'neg'
+                                } else if (diff > 0) {
+                                    diff_class = 'pos'
+                                }
 
-					var basic = {
+                                $('#details-table > tbody:last').append('<tr><th scope="row">' + band + '</th><td>' + grade + '</td><td><input type="number" value="' + basic + '" id="basic' + i + '" style="width: 100px;" class="basic-cl" /></td><td>' + perc + '%</td><td>' + housing + '</td><td>' + sdetails[index][0] + '</td><td>' + sdetails[index][1] + '</td><td>' + sdetails[index][2] + '</td><td>' + sdetails[index][3] + '</td><td>' + sdetails[index][4] + '</td><td>' + sdetails[index][5] + '</td><td>' + sdetails[index][6] + '</td><td>0</td><td>' + total + '</td><td class="diff-val ' + diff_class + '">' + diff + '</td></tr>');
+                                percent_list.push(perc);
+                                
+                                if (index == 0) {
+                                    CTCcalculation['basicSal_mon'] = basic
+                                    CTCcalculation['carAllowance_mon'] = sdetails[index][3]
+                                    CTCcalculation['houseAllowance_mon'] = housing
+                                    CTCcalculation['specialAllowance_mon'] = 0
+                                    CTCcalculation['positionAllowance_mon'] = sdetails[index][0] = sdetails[index][1] + sdetails[index][2] + sdetails[index][4] + sdetails[index][5] + sdetails[index][6]
+                                    CTCcalculation['subTotalA_mon'] = total
 
-						'L9O': ((annualCTCGratuity[level] * 3) / 100 ),
-					}
+                                    CTCcalculation['basicSal_ann'] = basic * 12
+                                    CTCcalculation['carAllowance_ann'] = sdetails[index][3] * 12
+                                    CTCcalculation['houseAllowance_ann'] = housing * 12
+                                    CTCcalculation['specialAllowance_ann'] = 0 * 12
+                                    CTCcalculation['positionAllowance_ann'] = CTCcalculation['positionAllowance_mon'] * 12
+                                    CTCcalculation['subTotalA_ann'] = total * 12
+                                    console.log("CTC Calculations ->", CTCcalculation)
+                                }
 
-					var hra = {
+                                //color difference
+                            }
 
-						
-						'L9O': ((basic[level] * 50) / 100 ),
+                            best = true;
+                        }
+                    });
+                }
 
-					}	
+                var keys = [];
+                var e = 0;
+                for(var k in actual) keys.unshift(k);
+                $.each(keys, function(i) {
+                    console.log(keys[i]+'----'+actual[keys[i]]);
+                //});
+                
+                e++;
+                
+                //actual.forEach(function(value, index) {
+                    console.log(value);
+                    console.log(index);
+                    
+                    var value = actual[keys[i]];
+                    var index = keys[i];    
 
-					var conveyance = {
-
-						
-						'L9O': 1600
-
-					}
-
-						
-					var medical = {
-
-						
-						'L9O': 1250
-					}
-
-					
-					var lta ={
-
-						
-						'L9O': 0
-					}			
-
-					
-								
-					
-					
-					CTCcalculation['BasicSal_mon'] = basic[level];
-					CTCcalculation['BasicSal_an'] = CTCcalculation['BasicSal_mon'] * 12;
-					CTCcalculation['hra_mon'] = hra[level];
-					CTCcalculation['hra_an'] = CTCcalculation['hra_mon'] * 12;
-					CTCcalculation['conveyance_mon'] = 0;
-					CTCcalculation['conveyance_an'] = CTCcalculation['conveyance_mon'] * 12;
-					CTCcalculation['medicalReimbursment_mon'] = 0;
-					CTCcalculation['medicalReimbursment_ann'] = CTCcalculation['medicalReimbursment_mon'] *12;
-
-					
-					
-					
-					
-					CTCcalculation['lta_an'] = 0;
-					CTCcalculation['lta_mon'] = CTCcalculation['lta_an']/12;
-					
-					
-					CTCcalculation['performancePay_an'] =   performance[level];
-					CTCcalculation['performancePay_mon'] = CTCcalculation['performancePay_an'] /12;
-					CTCcalculation['half_performancePay_mon'] = (level == 'L7M' )? (40  * performance[level])/100 :0;
-					
-					CTCcalculation['ctc_an'] = inputCTC_an;
-					CTCcalculation['ctc_mon'] = CTCcalculation['ctc_an']/12;
-
-					if(inputCTC_an <= 320000)
-					{
-					CTCcalculation['personalAllowance_mon'] = (CTCcalculation['ctc_an'] -CTCcalculation['performancePay_an'] -(CTCcalculation['BasicSal_mon'] *15/26) -(CTCcalculation['BasicSal_mon'] *.12 *12) - (CTCcalculation['hra_mon'] *12) -(CTCcalculation['BasicSal_mon'] *12))/ (12+(15/26)+(.12*12));
-					CTCcalculation['personalAllowance_an'] = CTCcalculation['personalAllowance_mon'] * 12;
-					
-                    CTCcalculation['pf_mon'] = ((CTCcalculation['BasicSal_mon'] + CTCcalculation['personalAllowance_mon']) >15000? 15000 * .12 : (CTCcalculation['BasicSal_mon'] + CTCcalculation['personalAllowance_mon']) *.12) ;
-					CTCcalculation['pf_ann'] = CTCcalculation['pf_mon'] *12;
-
-					CTCcalculation['gratuity_an'] = Math.round((CTCcalculation['BasicSal_mon'] + CTCcalculation['personalAllowance_mon']) >15000? (15000 * 15/26) : (CTCcalculation['BasicSal_mon'] + CTCcalculation['personalAllowance_mon']) * 15/26);
-					CTCcalculation['gratuity_mon'] = CTCcalculation['gratuity_an'] /12;
+                    basic = Math.round(value);
+                    housing = basic * 0.25;
+                    housing = Math.round(housing);
+                    perc = ((value / package) * 100).toFixed(2);
+                    grade = index;
+                     
+                    index = index-1;
+                    total = basic + housing + structure[index];
                     
                     
-					}
-
-					else if(inputCTC_an > 320000 && inputCTC_an<=625000)
-					{
-
-					CTCcalculation['personalAllowance_mon'] = ((CTCcalculation['ctc_an'] -CTCcalculation['performancePay_an'] -Math.round(15000 *15/26) - Math.round(15000 *.12 ) *12 )/12- (CTCcalculation['hra_mon'] ) -(CTCcalculation['BasicSal_mon'] ));
-					CTCcalculation['personalAllowance_an'] = CTCcalculation['personalAllowance_mon'] * 12;
-					
-					CTCcalculation['pf_mon'] = Math.round( 15000 * .12 ) ;
-					CTCcalculation['pf_ann'] = CTCcalculation['pf_mon'] *12;
-
-					CTCcalculation['gratuity_an'] = Math.round(15000 * 15/26);
-					CTCcalculation['gratuity_mon'] = CTCcalculation['gratuity_an']/ 12;
+                    band = "";
+                    for (var j = 0; j < bands.length; j++) {
+                        if (basic >= bands[j][0] && basic <= bands[j][1]) {
+                            if (band == "") {
+                                band += parseInt(j + 1);
+                            } else {
+                                band += ", " + parseInt(j + 1);
+                            }
+                        }
+                    }
                     
                     
-
-					}
-					else{
-						CTCcalculation['pf_mon'] = Math.round( CTCcalculation['BasicSal_mon']* .12 ) ;
-					CTCcalculation['pf_ann'] = CTCcalculation['pf_mon'] *12;
-
-					CTCcalculation['gratuity_an'] = Math.round(CTCcalculation['BasicSal_mon'] * 15/26);
-					CTCcalculation['gratuity_mon'] = CTCcalculation['gratuity_an'] / 12;
-					
-
-					CTCcalculation['personalAllowance_mon'] =(CTCcalculation['ctc_an'] -CTCcalculation['performancePay_an'] -(CTCcalculation['pf_ann']) -(CTCcalculation['gratuity_mon']) - (CTCcalculation['hra_mon'] *12) -(CTCcalculation['BasicSal_mon'] *12))/12;
-					
-					CTCcalculation['personalAllowance_an'] = Math.floor(CTCcalculation['personalAllowance_mon'] * 12);
-				    
-					}
-					
-				
-				    
-					CTCcalculation['performancePay_an'] =   performance[level];
-					CTCcalculation['performancePay_mon'] = CTCcalculation['performancePay_an'] /12;
+                    $('#details-table-actual > tbody:last').append('<tr><th scope="row">' + band + '</th><td>' + grade + '</td><td>' + basic + '</td><td>' + perc + '%</td><td>' + housing + '</td><td>' + sdetails[index][0] + '</td><td>' + sdetails[index][1] + '</td><td>' + sdetails[index][2] + '</td><td>' + sdetails[index][3] + '</td><td>' + sdetails[index][4] + '</td><td>' + sdetails[index][5] + '</td><td>' + sdetails[index][6] + '</td><td>0</td><td>' + total + '</td><td class="diff-val">0</td></tr>');
                     
-                    CTCcalculation['AnnualCTCgratuity_mon'] = CTCcalculation['ctc_an'] - CTCcalculation['performancePay_an']
-
-					CTCcalculation['annualCTC_an'] = CTCcalculation['AnnualCTCgratuity_mon'] - CTCcalculation['gratuity_an'];
-					CTCcalculation['annualCTC_mon'] = CTCcalculation['annualCTC_an']/12;
-
-					CTCcalculation['fixedPay_ann'] = CTCcalculation['annualCTC_an'] - CTCcalculation['pf_ann'];
-					CTCcalculation['fixedPay_mon'] = CTCcalculation['fixedPay_ann'] /12;
-
-					CTCcalculation['AnnualCTCgratuity_an'] = annualCTCGratuity[level];
-					CTCcalculation['AnnualCTCgratuity_mon'] = CTCcalculation['AnnualCTCgratuity_an']/12;
-					CTCcalculation['performancePay_an'] =   performance[level];
-					CTCcalculation['performancePay_mon'] = CTCcalculation['performancePay_an'] /12;
-
-
-
-
-					CTCcalculation['BasicSal_mon1'] = CTCcalculation['BasicSal_mon'];
-					CTCcalculation['BasicSal_an1'] = CTCcalculation['BasicSal_an'];
-					CTCcalculation['hra_mon1'] = CTCcalculation['hra_mon'];
-					CTCcalculation['hra_an1'] = CTCcalculation['hra_an'];
-					CTCcalculation['personalAllowance_mon1'] = CTCcalculation['personalAllowance_mon'];
-					CTCcalculation['personalAllowance_an1'] = CTCcalculation['personalAllowance_an'];
-					CTCcalculation['fixedPay_mon1'] = CTCcalculation['fixedPay_mon'];
-					CTCcalculation['lta_mon1'] = CTCcalculation['lta_mon'];
-					CTCcalculation['lta_an1'] = CTCcalculation['lta_an'];
-					CTCcalculation['pf_mon1'] = CTCcalculation['pf_mon'];
-					CTCcalculation['pf_ann1'] = CTCcalculation['pf_ann'];
-					CTCcalculation['gratuity_mon1'] = CTCcalculation['gratuity_mon'];
-					CTCcalculation['gratuity_an1'] = CTCcalculation['gratuity_an'];
-					CTCcalculation['flexi_mon1'] = CTCcalculation['flexi_mon'];
-					CTCcalculation['flexi_an1'] = CTCcalculation['flexi_an'];
-					CTCcalculation['annualCTC_mon1'] = CTCcalculation['annualCTC_mon'];
-					CTCcalculation['annualCTC_an1'] = CTCcalculation['annualCTC_an'];
-					CTCcalculation['AnnualCTCgratuity_mon1'] = CTCcalculation['AnnualCTCgratuity_mon'];
-					CTCcalculation['AnnualCTCgratuity_an1'] = CTCcalculation['AnnualCTCgratuity_an'];
-					CTCcalculation['half_performancePay_mon1'] = CTCcalculation['half_performancePay_mon'];
-					CTCcalculation['ctc_mon1'] = CTCcalculation['ctc_mon'];
-					CTCcalculation['ctc_an1'] = CTCcalculation['ctc_an'];
-				
-				
-
-				}
-
-				else if (selectMode == 'field' && level =='L9O' ) {
-
-
-
-
-						
-
-					var performance = {
-
-						
-						'L9O': 0,
-						
-
-					}
-
-
-
-					var annualCTCGratuity ={
-
-						
-						'L9O': (inputCTC_an - performance[level] )
-					}	
-
-					var basic = {
-
-						'L9O': ((annualCTCGratuity[level] * 3) / 100 ),
-					}
-
-					var hra = {
-
-						
-						'L9O': ((basic[level] * 50) / 100 ),
-
-					}	
-
-					var conveyance = {
-
-						
-						'L9O': 1600
-
-					}
-
-						
-					var medical = {
-
-						
-						'L9O': 1250
-					}
-
-					
-					var lta ={
-
-						
-						'L9O': 0
-					}			
-
-					
-								
-					
-					
-					CTCcalculation['BasicSal_mon'] = basic[level];
-					CTCcalculation['BasicSal_an'] = CTCcalculation['BasicSal_mon'] * 12;
-					CTCcalculation['hra_mon'] = hra[level];
-					CTCcalculation['hra_an'] = CTCcalculation['hra_mon'] * 12;
-					CTCcalculation['conveyance_mon'] = 0;
-					CTCcalculation['conveyance_an'] = CTCcalculation['conveyance_mon'] * 12;
-					CTCcalculation['medicalReimbursment_mon'] = 0;
-					CTCcalculation['medicalReimbursment_ann'] = CTCcalculation['medicalReimbursment_mon'] *12;
-
-					
-					
-					
-					
-					CTCcalculation['lta_an'] = 0;
-					CTCcalculation['lta_mon'] = CTCcalculation['lta_an']/12;
-					
-					
-					CTCcalculation['performancePay_an'] =   performance[level];
-					CTCcalculation['performancePay_mon'] = CTCcalculation['performancePay_an'] /12;
-					CTCcalculation['half_performancePay_mon'] = (level == 'L7M' )? (40  * performance[level])/100 :0;
-					
-					CTCcalculation['ctc_an'] = inputCTC_an;
-					CTCcalculation['ctc_mon'] = CTCcalculation['ctc_an']/12;
-
-					if(inputCTC_an <= 256000)
-					{
-					CTCcalculation['personalAllowance_mon'] = (CTCcalculation['ctc_an'] -CTCcalculation['performancePay_an'] -(CTCcalculation['BasicSal_mon'] *15/26) -(CTCcalculation['BasicSal_mon'] *.12 *12) - (CTCcalculation['hra_mon'] *12) -(CTCcalculation['BasicSal_mon'] *12))/ (12+(15/26)+(.12*12));
-					
-					CTCcalculation['personalAllowance_an'] = Math.floor(CTCcalculation['personalAllowance_mon'] * 12);
-
-					
-                    CTCcalculation['pf_mon'] = ((CTCcalculation['BasicSal_mon'] + CTCcalculation['personalAllowance_mon']) >15000? 15000 * .12 : (CTCcalculation['BasicSal_mon'] + CTCcalculation['personalAllowance_mon']) *.12) ;
-					CTCcalculation['pf_ann'] = CTCcalculation['pf_mon'] *12;
-
-					CTCcalculation['gratuity_an'] = Math.round((CTCcalculation['BasicSal_mon'] + CTCcalculation['personalAllowance_mon']) >15000? (15000 * 15/26) : (CTCcalculation['BasicSal_mon'] + CTCcalculation['personalAllowance_mon']) * 15/26);
-					CTCcalculation['gratuity_mon'] = CTCcalculation['gratuity_an'] /12;
+           
+                    // Print the best choice
+                    if (e === 1) {
+                        $("#basic-label").text(basic);
+                        $("#basic-details").text(package + " * " + perc + "%");
+                        console.log("Basic: " + basic);
+                        $("#housing-label").text(housing);
+                        $("#housing-details").text(basic + " * 25%");
+                        $("#grade-label").text(grade);
+                        console.log("Housing: " + housing);
+                        console.log("Grade: " + grade + ", Grade total: " + structure[index]);
+                        console.log("Package Offer: " + total);
+                        $("#total-label").text(total);
+                        //$("#total-details").text("Grade " + grade + " [ " + value + " + " + basic + " + " + housing + " ]");
+                        $("#total-details").text("Grade " + grade + " [ " + structure[index] + " ]");
+                        console.log("____________________");
+                    }
                     
                     
-					}
-					else if(inputCTC_an > 256000 && inputCTC_an<=500000)
-					{
-
-					CTCcalculation['personalAllowance_mon'] = ((CTCcalculation['ctc_an'] -CTCcalculation['performancePay_an'] -Math.round(15000 *15/26) - Math.round(15000 *.12 ) *12 )/12- (CTCcalculation['hra_mon'] ) -(CTCcalculation['BasicSal_mon'] ));
-					CTCcalculation['personalAllowance_an'] = CTCcalculation['personalAllowance_mon'] * 12;
-					
-					CTCcalculation['pf_mon'] = Math.round( 15000 * .12 ) ;
-					CTCcalculation['pf_ann'] = CTCcalculation['pf_mon'] *12;
-
-					CTCcalculation['gratuity_an'] = Math.round(15000 * 15/26);
-					CTCcalculation['gratuity_mon'] = CTCcalculation['gratuity_an']/12;
                     
-                    
+                });
 
-					}
+                
+                best = false;
+
+                var best_val = new Array();
+                best_val['diff'] = 0;
+                best_val['basic'] = 0;
+                best_val['percent'] = 0;
+                best_val['housing'] = 0;
+                best_val['grade'] = 0;
+                best_val['total'] = 0;
+                best_val['pkg_value'] = 0;
 
 
-					else if(inputCTC_an>500000)
-					{
+                //code for using special allowance value
+                if ($('#spec_allow').prop('checked')) {
+                    $("#details-table tbody tr").remove();
+                    $(".actual-package").hide();
+                    //for (var i = pneg; i <= ppos; i++) {
+                    for (var i = pneg; i <= pneg; i++) {
+                        perc = i;
+                        basic = (package * i) / 100;
+                    if (basic > 20000) {
+                        basic = 20000;
+                        perc = ((20000 / package) * 100).toFixed(2);
+                    }
+                    housing = basic * 0.25;
 
-					
-					CTCcalculation['pf_mon'] = Math.round( CTCcalculation['BasicSal_mon']* .12 ) ;
-					CTCcalculation['pf_ann'] = CTCcalculation['pf_mon'] *12;
+                    basic = Math.round(basic);
+                    housing = Math.round(housing);
 
-					CTCcalculation['gratuity_an'] = Math.round(CTCcalculation['BasicSal_mon'] * 15/26);
-					CTCcalculation['gratuity_mon'] = CTCcalculation['gratuity_an'] /12;
-					
+                    console.log(i + "**************************");
+                    total = 0;
+                    $.each(structure, function (index, value) {
+                        grade = index + 1;
+                        console.log(grade + ": " + value);
+                        total = basic + housing + value;
 
-					CTCcalculation['personalAllowance_mon'] =(CTCcalculation['ctc_an'] -CTCcalculation['performancePay_an'] -(CTCcalculation['pf_ann']) -(CTCcalculation['gratuity_mon']) - (CTCcalculation['hra_mon'] *12) -(CTCcalculation['BasicSal_mon'] *12))/12;
-					
-					CTCcalculation['personalAllowance_an'] = Math.floor(CTCcalculation['personalAllowance_mon'] * 12);
-                    
-                    
+                        console.log("Total: " + total);
 
-					}
-					
+                        var diff = package - total;
+
+                        //if first loop
+                        if (best_val['diff'] == 0 && diff > 0) {
+                            best_val['diff'] = diff;
+                            best_val['basic'] = basic;
+                            best_val['percent'] = perc;
+                            best_val['housing'] = housing;
+                            best_val['grade'] = grade;
+                            best_val['total'] = total;
+                            best_val['pkg_value'] = value;
+                        } else if (diff > 0 && diff < best_val['diff']) {
+                            best_val['diff'] = diff;
+                            best_val['basic'] = basic;
+                            best_val['percent'] = perc;
+                            best_val['housing'] = housing;
+                            best_val['grade'] = grade;
+                            best_val['total'] = total;
+                            best_val['pkg_value'] = value;
+                        }
+
+
+                    });
+                }
+
+                if (best_val['percent'] > 0) {
+                    console.log(i + "____________________");
+                    if (best === false) {
+                        $("#basic-label").text(best_val['basic']);
+                        $("#basic-details").text(package + " * " + best_val['percent'] + "%");
+                        $("#housing-label").text(best_val['housing']);
+                        $("#housing-details").text(best_val['basic'] + " * 25%");
+                        console.log("Housing: " + best_val['housing']);
+                        $("#grade-label").text(best_val['grade']);
+
+                        console.log("Package Offer: " + best_val['total']);
+                        $("#total-label").text(best_val['total'] + best_val['diff']);
+                        
+                        //$("#total-details").text("Grade " + grade + " [ " + value + " + " + basic + " + " + housing + " ]");
+                        // $("#total-details").text("Grade " + best_val['grade']);
+                        $("#total-details").text("Grade " + best_val['grade'] + " [ " + best_val['pkg_value'] + " ]");
+                        console.log("____________________");
+                    }
+
+                    band = "";
+                    for (var j = 0; j < bands.length; j++)
+                        if (best_val['basic'] >= bands[j][0] && best_val['basic'] <= bands[j][1]) {
+                            if (band == "") {
+                                band += parseInt(j + 1);
+                            } else {
+                                band += ", " + parseInt(j + 1);
+                            }
+                        }
+                    best_val['total'] += best_val['diff'];
+                    var best_grade = best_val['grade'];
+                    $('#details-table > tbody:last').append('<tr><th scope="row">' + band + '</th><td>' + best_val['grade'] + '</td><td>' + best_val['basic'] + '</td><td>' + best_val['percent'] + '%</td><td>' + best_val['housing'] + '</td><td>' + sdetails[best_grade - 1][0] + '</td><td>' + sdetails[best_grade - 1][1] + '</td><td>' + sdetails[best_grade - 1][2] + '</td><td>' + sdetails[best_grade - 1][3] + '</td><td>' + sdetails[best_grade - 1][4] + '</td><td>' + sdetails[best_grade - 1][5] + '</td><td>' + sdetails[best_grade - 1][6] + '</td><td>' + best_val['diff'] + '</td><td>' + best_val['total'] + '</td><td>0</td></tr>');
+                    $('#special-allow-label').text(best_val['diff']);
+                    best = true;
+                }
+            }
+        return CTCcalculation;			
+    }
 				
-				    
-					CTCcalculation['performancePay_an'] =   performance[level];
-					CTCcalculation['performancePay_mon'] = CTCcalculation['performancePay_an'] /12;
-                    
-                    CTCcalculation['AnnualCTCgratuity_mon'] = CTCcalculation['ctc_an'] - CTCcalculation['performancePay_an']
-
-					CTCcalculation['annualCTC_an'] = CTCcalculation['AnnualCTCgratuity_mon'] - CTCcalculation['gratuity_an'];
-					CTCcalculation['annualCTC_mon'] = CTCcalculation['annualCTC_an']/12;
-
-					CTCcalculation['fixedPay_ann'] = CTCcalculation['annualCTC_an'] - CTCcalculation['pf_ann'];
-					CTCcalculation['fixedPay_mon'] = CTCcalculation['fixedPay_ann'] /12;
-
-					CTCcalculation['AnnualCTCgratuity_ann'] = annualCTCGratuity[level];
-					CTCcalculation['AnnualCTCgratuity_mon'] = CTCcalculation['AnnualCTCgratuity_ann']/12
-					CTCcalculation['performancePay_an'] =   performance[level];
-					CTCcalculation['performancePay_mon'] = CTCcalculation['performancePay_an'] /12;
-
-
-					CTCcalculation['BasicSal_mon1'] = CTCcalculation['BasicSal_mon'];
-					CTCcalculation['BasicSal_an1'] = CTCcalculation['BasicSal_an'];
-					CTCcalculation['hra_mon1'] = CTCcalculation['hra_mon'];
-					CTCcalculation['hra_an1'] = CTCcalculation['hra_an'];
-					CTCcalculation['personalAllowance_mon1'] = CTCcalculation['personalAllowance_mon'];
-					CTCcalculation['personalAllowance_an1'] = CTCcalculation['personalAllowance_an'];
-					CTCcalculation['fixedPay_mon1'] = CTCcalculation['fixedPay_mon'];
-					CTCcalculation['lta_mon1'] = CTCcalculation['lta_mon'];
-					CTCcalculation['lta_an1'] = CTCcalculation['lta_an'];
-					CTCcalculation['pf_mon1'] = CTCcalculation['pf_mon'];
-					CTCcalculation['pf_ann1'] = CTCcalculation['pf_ann'];
-					CTCcalculation['gratuity_mon1'] = CTCcalculation['gratuity_mon'];
-					CTCcalculation['gratuity_an1'] = CTCcalculation['gratuity_an'];
-					CTCcalculation['flexi_mon1'] = CTCcalculation['flexi_mon'];
-					CTCcalculation['flexi_an1'] = CTCcalculation['flexi_an'];
-					CTCcalculation['annualCTC_mon1'] = CTCcalculation['annualCTC_mon'];
-					CTCcalculation['annualCTC_an1'] = CTCcalculation['annualCTC_an'];
-					CTCcalculation['AnnualCTCgratuity_mon1'] = CTCcalculation['AnnualCTCgratuity_mon'];
-					CTCcalculation['AnnualCTCgratuity_an1'] = CTCcalculation['AnnualCTCgratuity_an'];
-					CTCcalculation['half_performancePay_mon1'] = CTCcalculation['half_performancePay_mon'];
-					CTCcalculation['ctc_mon1'] = CTCcalculation['ctc_mon'];
-					CTCcalculation['ctc_an1'] = CTCcalculation['ctc_an'];
-				
-				
-				
-
-				}
-
-				else if (level == 'L7M' ) {
-
-
-
-
-						
-
-					var performance = {
-
-						
-						'L7M': isNaN(pp_per) ? (inputCTC_an * 20 )/100 : (inputCTC_an * inputPP_per )/100
-						
-
-					}	
-
-					var annualCTCGratuity ={
-
-						
-						'L7M': (inputCTC_an - performance[level] ),
-						
-					}	
-
-					var basic = {
-
-						
-						'L7M': Math.round((annualCTCGratuity[level] * 3) / 100 ),
-						
-					}
-
-					var hra = {
-
-						
-						'L7M': Math.round((basic[level] * 50) /100),
-						
-
-					}	
-
-					var conveyance = {
-
-						
-						'L7M': 1600,
-						
-
-					}
-					var lta ={
-
-						
-						'L7M': Math.round((basic[level] * 1.5)),
-						
-						
-					}
-
-
-						
-					var medical = {
-
-						
-						'L7M': 1250,
-						
-					}
-
-                    if(inputCTC_an>339000){
-                    	basic[level]=basic[level]*12;
-						hra[level]=hra[level]*12;
-
-					var personalAllowance = {
-
-						'L7M': Math.round(48557+87189+147848-174325+192049),
-						
-						
-						
-					}
-
-					var pf ={
-
-						'L7M': (basic[level]/12) >15000 ? ((basic[level] * 12) /100) : ((basic[level]+ personalAllowance[level])/12) > 15000 ? (180000 * .12) : (basic[level]+ personalAllowance[level]) * .12,
-						
-						//'L8O': (basic[level]/12) >15000 ? ((basic[level] * 12) /100) : ((basic[level]+ personalAllowance[level])/12) > 15000 ? (180000 * .12) : (basic[level]+ personalAllowance[level]) * .12,
-						
-					}
-
-					var gratuity = {
-
-						'L7M': (basic[level]) >180000? ((basic[level]/12) * 15/26): (pf[level] == 180000 * .12) ? (15000) *15 /26 : ((basic[level]+ personalAllowance[level])/12) * 15/26,
-						
-						//'L8O': (basic[level]) >180000? ((basic[level]/12) * 15/26): (pf[level] == 180000 * .12) ? (15000) *15 /26 : ((basic[level]+ personalAllowance[level])/12) * 15/26,
-						
-
-					}
-					var personalAllowance2 = {
-
-						'L7M': Math.round(0.415*inputCTC_an-gratuity[level]-pf[level]-0.415*performance[level]),
-						
-						//'L8O': Math.round(0.415*inputCTC_an-gratuity['L8O']-pf['L8O']-0.415*performance['L8O']),
-						//'L9O': Math.round(48557+87189+41500)
-					}
-					}
-					//end of if condition
-					//for input ctc less than 3,39,000
-					else
-					{
-						basic[level]=basic[level]*12;
-						hra[level]=hra[level]*12;
-
-						//alert(basic[level]);
-						var personalAllowance = {
-
-						'L7M': Math.round(((inputCTC_an-performance[level]-lta[level]-hra[level])/1.16808)-basic[level]),
-						
-						//'L8O': Math.round(((inputCTC_an-performance[level]-lta[level]-hra[level])/1.16808)-basic[level]),
-						
-					}
-
-
-					var pf ={
-
-						'L7M': (basic[level]/12) >15000 ? ((basic[level] * 12) /100) : ((basic[level]+ personalAllowance[level])/12) > 15000 ? (180000 * .12) : (basic[level]+ personalAllowance[level]) * .12,
-						
-						//'L8O': (basic[level]/12) >15000 ? ((basic[level] * 12) /100) : ((basic[level]+ personalAllowance[level])/12) > 15000 ? (180000 * .12) : (basic[level]+ personalAllowance[level]) * .12,
-						
-					}
-// 					alert(pf[level]);
-
-					var gratuity = {
-
-						'L7M': (basic[level]) >180000? ((basic[level]/12) * 15/26): (pf[level] == 180000 * .12) ? (15000) *15 /26 : ((basic[level]+ personalAllowance[level])/12) * 15/26,
-						
-						//'L8O': (basic[level]) >180000? ((basic[level]/12) * 15/26): (pf[level] == 180000 * .12) ? (15000) *15 /26 : ((basic[level]+ personalAllowance[level])/12) * 15/26,
-						
-
-					}
-					var personalAllowance2 = {
-
-						'L7M': personalAllowance[level],
-						
-						
-					}
-
-					}
-					basic[level]=basic[level]/12;
-						hra[level]=hra[level]/12;
-
-
-
-
-// 					var pf ={
-
-						
-// 						'L7M': Math.round((basic[level] * 12) /100) * 12,
-						
-// 					}
-
-					
-
-// 					var gratuity = {
-
-						
-// 						'L7M': Math.round((basic[level] * 15/26)),
-						
-
-// 					}
-
-					var anualCTC = {
-
-						
-						'L7M': annualCTCGratuity[level] - gratuity[level],
-						
-
-					}
-
-					var fixedPay = {
-
-						
-						'L7M': anualCTC[level] - pf[level] - lta[level],
-						
-
-					}
-
-// 					var personalAllowance = {
-
-						
-// 						'L7M': fixedPay[level]/12 - basic[level] - hra[level] - conveyance[level] - medical[level],
-						
-// 					}
-					
-					
-					CTCcalculation['BasicSal_mon'] = basic[level];
-					CTCcalculation['BasicSal_an'] = CTCcalculation['BasicSal_mon'] * 12;
-					CTCcalculation['hra_mon'] = hra[level];
-					CTCcalculation['hra_an'] = CTCcalculation['hra_mon'] * 12;
-					CTCcalculation['conveyance_mon'] = 0    ;
-					CTCcalculation['conveyance_an'] = CTCcalculation['conveyance_mon'] * 12;
-					CTCcalculation['medicalReimbursment_mon'] = 0;
-					CTCcalculation['medicalReimbursment_ann'] = CTCcalculation['medicalReimbursment_mon'] *12;
-					CTCcalculation['personalAllowance_mon'] = personalAllowance2[level]/12;
-					CTCcalculation['personalAllowance_an'] = CTCcalculation['personalAllowance_mon'] * 12;
-					CTCcalculation['fixedPay_ann'] = fixedPay[level];
-					CTCcalculation['fixedPay_mon'] = CTCcalculation['fixedPay_ann'] /12;
-					CTCcalculation['pf_ann'] = pf[level];
-					CTCcalculation['pf_mon'] = CTCcalculation['pf_ann'] /12;
-					CTCcalculation['lta_an'] = lta[level];
-					CTCcalculation['lta_mon'] = CTCcalculation['lta_an']/12;
-					CTCcalculation['annualCTC_an'] = anualCTC[level];
-					CTCcalculation['annualCTC_mon'] = CTCcalculation['annualCTC_an']/12;
-					CTCcalculation['gratuity_ann'] = gratuity[level]*12;
-					CTCcalculation['gratuity_an'] = CTCcalculation['gratuity_ann']/12;
-					CTCcalculation['gratuity_mon'] = CTCcalculation['gratuity_an']/12;
-
-					CTCcalculation['AnnualCTCgratuity_an'] = annualCTCGratuity[level];
-					CTCcalculation['AnnualCTCgratuity_mon'] = CTCcalculation['AnnualCTCgratuity_an']/12;
-
-
-					CTCcalculation['performancePay_an'] =  (level == 'L7M') ? ( performance[level]  * 60) /100  : performance[level];
-					CTCcalculation['performancePay_mon'] = CTCcalculation['performancePay_an'] /12;
-					CTCcalculation['half_performancePay_mon'] = (level == 'L7M' )? (40  * performance[level])/100 :0;
-					CTCcalculation['ctc_an'] = inputCTC_an;
-					CTCcalculation['ctc_mon'] = CTCcalculation['ctc_an']/12;
-
-
-
-					CTCcalculation['BasicSal_mon1'] = CTCcalculation['BasicSal_mon'];
-					CTCcalculation['BasicSal_an1'] = CTCcalculation['BasicSal_an'];
-					CTCcalculation['hra_mon1'] = CTCcalculation['hra_mon'];
-					CTCcalculation['hra_an1'] = CTCcalculation['hra_an'];
-					CTCcalculation['personalAllowance_mon1'] = CTCcalculation['personalAllowance_mon'];
-					CTCcalculation['personalAllowance_an1'] = CTCcalculation['personalAllowance_an'];
-					CTCcalculation['fixedPay_mon1'] = CTCcalculation['fixedPay_mon'];
-					CTCcalculation['lta_mon1'] = CTCcalculation['lta_mon'];
-					CTCcalculation['lta_an1'] = CTCcalculation['lta_an'];
-					CTCcalculation['pf_mon1'] = CTCcalculation['pf_mon'];
-					CTCcalculation['pf_ann1'] = CTCcalculation['pf_ann'];
-					CTCcalculation['gratuity_mon1'] = CTCcalculation['gratuity_mon'];
-					CTCcalculation['gratuity_an1'] = CTCcalculation['gratuity_an'];
-					CTCcalculation['flexi_mon1'] = CTCcalculation['flexi_mon'];
-					CTCcalculation['flexi_an1'] = CTCcalculation['flexi_an'];
-					CTCcalculation['annualCTC_mon1'] = CTCcalculation['annualCTC_mon'];
-					CTCcalculation['annualCTC_an1'] = CTCcalculation['annualCTC_an'];
-					CTCcalculation['AnnualCTCgratuity_mon1'] = CTCcalculation['AnnualCTCgratuity_mon'];
-					CTCcalculation['AnnualCTCgratuity_an1'] = CTCcalculation['AnnualCTCgratuity_an'];
-					CTCcalculation['half_performancePay_mon1'] = CTCcalculation['half_performancePay_mon'];
-					CTCcalculation['ctc_mon1'] = CTCcalculation['ctc_mon'];
-					CTCcalculation['ctc_an1'] = CTCcalculation['ctc_an'];
-					
-				
-				
-
-				}
-
-				else if( level == 'L10')
-				{
-					if( inputCTC_an < 196149){
-
-						CTCcalculation['annualGross_ann'] = (inputCTC_an * 91.77)/100;
-
-					
-					
-					CTCcalculation['BasicSal_an'] =(CTCcalculation['annualGross_ann'] * 35)/100;
-
-					CTCcalculation['BasicSal_mon'] = CTCcalculation['BasicSal_an'] /12;
-
-					CTCcalculation['hra_an'] = (CTCcalculation['BasicSal_an'] *50) /100;
-					CTCcalculation['hra_mon'] = CTCcalculation['hra_an'] / 12;
-					
-					CTCcalculation['conveyance_an'] = 19200;
-					CTCcalculation['conveyance_mon'] = CTCcalculation['conveyance_an'] /12;
-					
-					
-					CTCcalculation['personalAllowance_ann'] = CTCcalculation['annualGross_ann'] - CTCcalculation['BasicSal_an'] - CTCcalculation['hra_an'] - CTCcalculation['conveyance_an'];
-					CTCcalculation['personalAllowance_mon'] = CTCcalculation['personalAllowance_ann']/12;
-
-					CTCcalculation['pf_ann'] = ( CTCcalculation['BasicSal_an'] *12)/100;
-					CTCcalculation['pf_mon'] = CTCcalculation['pf_ann'] /12;
-					CTCcalculation['esic_an'] = (CTCcalculation['annualGross_ann'] *4.75)/100
-					CTCcalculation['esic_mon'] = CTCcalculation['esic_an'] /12;
-					CTCcalculation['ctc_an'] = inputCTC_an;
-					CTCcalculation['ctc_mon'] = CTCcalculation['ctc_an']/12;
-
-					}
-
-					else if (inputCTC_an > 196149){
-
-					CTCcalculation['annualGross_ann'] = (inputCTC_an * 95.97)/100;
-					
-					CTCcalculation['BasicSal_an'] =(CTCcalculation['annualGross_ann'] * 35)/100;
-
-					CTCcalculation['BasicSal_mon'] = CTCcalculation['BasicSal_an'] /12;
-
-					CTCcalculation['hra_an'] = (CTCcalculation['BasicSal_an'] *50) /100;
-					CTCcalculation['hra_mon'] = CTCcalculation['hra_an'] / 12;
-					
-					CTCcalculation['conveyance_an'] = 19200;
-					CTCcalculation['conveyance_mon'] = CTCcalculation['conveyance_an'] /12;
-					
-					
-					CTCcalculation['personalAllowance_ann'] = CTCcalculation['annualGross_ann'] - CTCcalculation['BasicSal_an'] - CTCcalculation['hra_an'] - CTCcalculation['conveyance_an'];
-					CTCcalculation['personalAllowance_mon'] = CTCcalculation['personalAllowance_ann']/12;
-					
-					CTCcalculation['pf_ann'] = ( CTCcalculation['BasicSal_an'] *12)/100;
-					CTCcalculation['pf_mon'] = CTCcalculation['pf_ann'] /12;
-					CTCcalculation['esic_an'] = (CTCcalculation['annualGross_ann'] *4.75)/100
-					CTCcalculation['esic_mon'] = CTCcalculation['esic_an'] /12;
-					CTCcalculation['ctc_an'] = inputCTC_an;
-					CTCcalculation['ctc_mon'] = CTCcalculation['ctc_an']/12;
-
-					}
-
-
-					CTCcalculation['BasicSal_mon1'] = CTCcalculation['BasicSal_mon'];
-					CTCcalculation['BasicSal_an1'] = CTCcalculation['BasicSal_an'];
-					CTCcalculation['hra_mon1'] = CTCcalculation['hra_mon'];
-					CTCcalculation['hra_an1'] = CTCcalculation['hra_an'];
-					CTCcalculation['personalAllowance_mon1'] = CTCcalculation['personalAllowance_mon'];
-					CTCcalculation['personalAllowance_an1'] = CTCcalculation['personalAllowance_an'];
-					CTCcalculation['fixedPay_mon1'] = CTCcalculation['fixedPay_mon'];
-					CTCcalculation['lta_mon1'] = CTCcalculation['lta_mon'];
-					CTCcalculation['lta_an1'] = CTCcalculation['lta_an'];
-					CTCcalculation['pf_mon1'] = CTCcalculation['pf_mon'];
-					CTCcalculation['pf_ann1'] = CTCcalculation['pf_ann'];
-					CTCcalculation['gratuity_mon1'] = CTCcalculation['gratuity_mon'];
-					CTCcalculation['gratuity_an1'] = CTCcalculation['gratuity_an'];
-					CTCcalculation['flexi_mon1'] = CTCcalculation['flexi_mon'];
-					CTCcalculation['flexi_an1'] = CTCcalculation['flexi_an'];
-					CTCcalculation['annualCTC_mon1'] = CTCcalculation['annualCTC_mon'];
-					CTCcalculation['annualCTC_an1'] = CTCcalculation['annualCTC_an'];
-					CTCcalculation['AnnualCTCgratuity_mon1'] = CTCcalculation['AnnualCTCgratuity_mon'];
-					CTCcalculation['AnnualCTCgratuity_an1'] = CTCcalculation['AnnualCTCgratuity_an'];
-					CTCcalculation['half_performancePay_mon1'] = CTCcalculation['half_performancePay_mon'];
-					CTCcalculation['ctc_mon1'] = CTCcalculation['ctc_mon'];
-					CTCcalculation['ctc_an1'] = CTCcalculation['ctc_an'];
-
-					
-				}
-
-				
-
-				else if (level =='L6M' || level =='L5M' || level =='L5DH' || level =='L4DH'||level =='L3DH' || level =='L3E' || level =='L2E' || level =='L2S' || level =='L1S') {
-
-
-					var annualPP = {
-
-						'L6M': 12/100,
-						'L5M': 12/ 100,
-						'L5DH': 12/ 100,
-						'L4DH': 12 /100,
-						'L3DH': 12/100,
-						'L3E': 15/100,
-						'L2E': 25/100,
-						'L2S': 20/100,
-						'L1S': 20/100
-					}
-
-					var halfPP ={
-
-						'L6M': 8/100,
-						'L5M': 8/100,
-						'L5DH': 8/100,
-						'L4DH': 8/100,
-						'L3DH': 8/100,
-						'L3E': 10/100,
-						'L2E': 0,
-						'L2S': 0,
-						'L1S': 0
-					}
-
-					var basic ={
-
-						'L6M': 24/100,
-						'L5M': 24/100,
-						'L5DH': 24/100,
-						'L4DH': 24/100,
-						'L3DH': 24/100,
-						'L3E': 24/100,
-						'L2E': 22/100,
-						'L2S': 22/100,
-						'L1S': 22/100
-
-					}
-
-
-
-					CTCcalculation['BasicSal_an'] = Math.round( basic[level] * inputCTC_an);
-					CTCcalculation['BasicSal_mon'] =CTCcalculation['BasicSal_an']/12;
-					CTCcalculation['pf_ann'] = Math.round( 12 * CTCcalculation['BasicSal_an']) /100;
-					CTCcalculation['pf_mon'] = CTCcalculation['pf_ann'] /12;
-					CTCcalculation['gratuity_ann'] = Math.round( CTCcalculation['BasicSal_an'] / 12 /26 * 15 );
-					CTCcalculation['gratuity_an'] = CTCcalculation['gratuity_ann'];
-					CTCcalculation['gratuity_mon']=CTCcalculation['gratuity_an']/12;
-
-					CTCcalculation['retirals_an'] = CTCcalculation['pf_ann'] + CTCcalculation['gratuity_ann'];
-					CTCcalculation['retirals_mon'] = CTCcalculation['retirals_an'] /12;
-					
-					CTCcalculation['performancePay_an'] =  isNaN(pp_per) ? (inputCTC_an * annualPP[level]) : (((inputCTC_an * inputPP_per )/100 ) *60 )/100;
-					CTCcalculation['performancePay_mon'] = CTCcalculation['performancePay_an'] /12;
-					CTCcalculation['half_performancePay_mon'] = isNaN(pp_per) ? (inputCTC_an  * halfPP[level]) : (((inputCTC_an * inputPP_per )/100 ) *40 )/100;
-					CTCcalculation['flexi_an'] = inputCTC_an - ( CTCcalculation['half_performancePay_mon'] + CTCcalculation['performancePay_an'] + CTCcalculation['retirals_an'] + CTCcalculation['BasicSal_an']);
-					CTCcalculation['flexi_mon'] = CTCcalculation['flexi_an'] /12;
-
-					CTCcalculation['ctc_an'] = inputCTC_an;
-					CTCcalculation['ctc_mon'] = CTCcalculation['ctc_an'] /12;
-                  
-					CTCcalculation['annualCTC_an']= Math.round(CTCcalculation['ctc_an'] - CTCcalculation['performancePay_an'] - CTCcalculation['half_performancePay_mon'])
-                    CTCcalculation['annualCTC_mon']=CTCcalculation['annualCTC_an']/12;
-
-
-
-                    CTCcalculation['BasicSal_mon1'] = CTCcalculation['BasicSal_mon'];
-					CTCcalculation['BasicSal_an1'] = CTCcalculation['BasicSal_an'];
-					CTCcalculation['hra_mon1'] = CTCcalculation['hra_mon'];
-					CTCcalculation['hra_an1'] = CTCcalculation['hra_an'];
-					CTCcalculation['personalAllowance_mon1'] = CTCcalculation['personalAllowance_mon'];
-					CTCcalculation['personalAllowance_an1'] = CTCcalculation['personalAllowance_an'];
-					CTCcalculation['fixedPay_mon1'] = CTCcalculation['fixedPay_mon'];
-					CTCcalculation['lta_mon1'] = CTCcalculation['lta_mon'];
-					CTCcalculation['lta_an1'] = CTCcalculation['lta_an'];
-					CTCcalculation['pf_mon1'] = CTCcalculation['pf_mon'];
-					CTCcalculation['pf_ann1'] = CTCcalculation['pf_ann'];
-					CTCcalculation['gratuity_mon1'] = CTCcalculation['gratuity_mon'];
-					CTCcalculation['gratuity_an1'] = CTCcalculation['gratuity_an'];
-					CTCcalculation['flexi_mon1'] = CTCcalculation['flexi_mon'];
-					CTCcalculation['flexi_an1'] = CTCcalculation['flexi_an'];
-					CTCcalculation['annualCTC_mon1'] = CTCcalculation['annualCTC_mon'];
-					CTCcalculation['annualCTC_an1'] = CTCcalculation['annualCTC_an'];
-					CTCcalculation['AnnualCTCgratuity_mon1'] = CTCcalculation['AnnualCTCgratuity_mon'];
-					CTCcalculation['AnnualCTCgratuity_an1'] = CTCcalculation['AnnualCTCgratuity_an'];
-					CTCcalculation['half_performancePay_mon1'] = CTCcalculation['half_performancePay_mon'];
-					CTCcalculation['ctc_mon1'] = CTCcalculation['ctc_mon'];
-					CTCcalculation['ctc_an1'] = CTCcalculation['ctc_an'];
-                   
-				};
-
-
-							var fixedSalary = isNaN(parseFloat($mj('[name="currentFixed"]').val()))? 0 : parseFloat($mj('[name="currentFixed"]').val());
-							var varSalary = isNaN(parseFloat($mj('[name="currentVariable"]').val()))? 0 : parseFloat($mj('[name="currentVariable"]').val());
-
-				
-							CTCcalculation['percentHike'] = ((inputCTC_an  - (fixedSalary + varSalary ))/(fixedSalary + varSalary ) ) * 100;
-                            CTCcalculation['selectedField'] = inputlevel;
-                            CTCcalculation['selectedGrade'] = inputfieldBakoff;
-				
-
-				return CTCcalculation;
-			
-				
-
-				
-			}
-				
-   
-			
-
-
-
-
-          
-    
+ 
 	$mj("#calculateButton").click(function(event){
 
 		event.preventDefault();
 
-		var inputCTC = $mj("#inputCTC").val();
-		var inputlevel = $mj('#Level').val();
-		var inputfieldBakoff = $mj('#filedBackoffice').val();
-		var inputPP_per = $mj('#PP_Perc').val();
+		var offerCtc = 10000
+		var negativeDiff = 200;
+        var positiveDiff = 200;
+        var minBasicP = 50;
+
+        var maxBasicP = 60;
 
 
 		
@@ -1353,12 +369,12 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
 
 		
 
-        var sal  = calcCTC(inputCTC,inputlevel,inputfieldBakoff,inputPP_per);
+        var sal  = calcCTC(offerCtc, negativeDiff, positiveDiff, minBasicP, maxBasicP);
 
         for( var key in sal){
 
 
-            if( key == 'selectedGrade' || key == 'selectedField' ){
+            if(key == 'selectedGrade' || key == 'selectedField'){
             
                         var salComponent = (sal[key]);
 			 			//var round = salComponent.toLocaleString('en-IN');
