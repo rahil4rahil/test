@@ -8,8 +8,38 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
 	var $mj = jQuery.noConflict();
 
 	$mj(document).ready(function() {
-
+        console.log("heelo")
 		var calcCTC =  function(offerCtc, negativeDiff, positiveDiff, minBasicP, maxBasicP) {
+
+            var structure = [1750, 2600, 3550, 4100, 5450, 7550, 9450, 11850, 13950, 17600];
+            //var structure = [1750, 2600, 3550, 4100, 5450, 7550, 9450, 11850, 13950, 17600, 23750, 27000];
+
+
+            var sdetails = [
+                [400, 250, 300, 650, 50, 50, 50],
+                [600, 500, 600, 650, 100, 100, 50],
+                [800, 1000, 800, 650, 100, 150, 50],
+                [1000, 1000, 1000, 650, 150, 200, 100],
+                [1200, 1250, 1800, 650, 200, 200, 150],
+                [1500, 2000, 2400, 650, 400, 400, 200],
+                [1800, 2500, 3500, 650, 400, 400, 200],
+                [2400, 2500, 5000, 650, 500, 500, 300],
+                [2800, 3500, 5500, 650, 500, 600, 400],
+                [4800, 3400, 6250, 650, 1000, 1000, 500],
+            ];
+
+            var bands = [
+                [1500, 3200],
+                [3060, 5400],
+                [5355, 7560],
+                [7497, 10584],
+                [9146, 13989],
+                [11159, 17066],
+                [13613, 20821],
+                [16608, 25401],
+                [19100, 29211],
+                [22481, 33593]
+            ];
 
 				var package = parseFloat(offerCtc);
                 var neg = parseInt(negativeDiff) * -1;
@@ -25,7 +55,8 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                 }
                 console.log(neg + ":: " + pos);
 
-				CTCcalculation = {
+				var CTCcalculation = {
+                    "basicPercentage": 0,
                     "basicSal_mon": 0,
                     "basicSal_ann": 0,
                     "carAllowance_mon": 0,
@@ -37,40 +68,12 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                     "positionAllowance_mon": 0,
                     "positionAllowance_ann": 0,
                     "subTotalA_mon": 0,
-                    "subTotalA_ann": 0
+                    "subTotalA_ann": 0,
+                    "grade": 0,
+                    "band": 0
 				}
 				
-                var structure = [1750, 2600, 3550, 4100, 5450, 7550, 9450, 11850, 13950, 17600];
-                //var structure = [1750, 2600, 3550, 4100, 5450, 7550, 9450, 11850, 13950, 17600, 23750, 27000];
-
-
-                var sdetails = [
-                    [400, 250, 300, 650, 50, 50, 50],
-                    [600, 500, 600, 650, 100, 100, 50],
-                    [800, 1000, 800, 650, 100, 150, 50],
-                    [1000, 1000, 1000, 650, 150, 200, 100],
-                    [1200, 1250, 1800, 650, 200, 200, 150],
-                    [1500, 2000, 2400, 650, 400, 400, 200],
-                    [1800, 2500, 3500, 650, 400, 400, 200],
-                    [2400, 2500, 5000, 650, 500, 500, 300],
-                    [2800, 3500, 5500, 650, 500, 600, 400],
-                    [4800, 3400, 6250, 650, 1000, 1000, 500],
-                            //[6250,3750,7500,2500,1250,1250,1250],
-                            //[7000,5000,8000,2500,1500,1500,1500],
-                ];
-
-                var bands = [
-                    [1500, 3200],
-                    [3060, 5400],
-                    [5355, 7560],
-                    [7497, 10584],
-                    [9146, 13989],
-                    [11159, 17066],
-                    [13613, 20821],
-                    [16608, 25401],
-                    [19100, 29211],
-                    [22481, 33593]
-                ];
+               
 
                 var basic = 0;
                 var housing = 0;
@@ -98,15 +101,15 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                     basic = Math.round(basic);
                     housing = Math.round(housing);
 
-            //         console.log("Basic: " + basic);
-            //         console.log("Housing: " + housing);
+                    console.log("Basic: " + basic);
+                    console.log("Housing: " + housing);
                     console.log(i + "**************************");
                     total = 0;
-                    $.each(structure, function (index, value) {
+                    $mj.each(structure, function (index, value) {
                         grade = index + 1;
                         console.log(grade + ": " + value);
                         total = basic + housing + value;
-
+                        console.log("total ->", total)
                         band = "";
                         for (var j = 0; j < bands.length; j++) {
                             if (basic >= bands[j][0] && basic <= bands[j][1]) {
@@ -117,6 +120,8 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                                 }
                             }
                         }
+                        console.log("neg ->", neg)
+                        console.log("package - neg -> ", (package - neg))
 
                         if (total >= (package - neg) && total <= (package + pos)) {
                                                 
@@ -128,21 +133,21 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                             }
 
                             console.log(i + "____________________");
-                            if (best === false) {
-                                // $("#basic-label").text(basic);
-                                // $("#basic-details").text(package + " * " + perc + "%");
-                                // console.log("Basic: " + basic);
-                                // $("#housing-label").text(housing);
-                                // $("#housing-details").text(basic + " * 25%");
-                                // $("#grade-label").text(grade);
-                                // console.log("Housing: " + housing);
-                                // console.log("Grade: " + grade + ", Grade total: " + value);
-                                // console.log("Package Offer: " + total);
-                                // $("#total-label").text(total);
-                                // //$("#total-details").text("Grade " + grade + " [ " + value + " + " + basic + " + " + housing + " ]");
-                                // $("#total-details").text("Grade " + grade + " [ " + value + " ]");
-                                // console.log("____________________");
-                            }
+                            // if (best === false) {
+                            //     $mj("#basic-label").text(basic);
+                            //     $mj("#basic-details").text(package + " * " + perc + "%");
+                            //     console.log("Basic: " + basic);
+                            //     $mj("#housing-label").text(housing);
+                            //     $mj("#housing-details").text(basic + " * 25%");
+                            //     $mj("#grade-label").text(grade);
+                            //     console.log("Housing: " + housing);
+                            //     console.log("Grade: " + grade + ", Grade total: " + value);
+                            //     console.log("Package Offer: " + total);
+                            //     $mj("#total-label").text(total);
+                            //     //$mj("#total-details").text("Grade " + grade + " [ " + value + " + " + basic + " + " + housing + " ]");
+                            //     $mj("#total-details").text("Grade " + grade + " [ " + value + " ]");
+                            //     console.log("____________________");
+                            // }
 
                             if (basic == 20000 && jQuery.inArray(perc, percent_list) !== -1) {
                                 //do nothing
@@ -155,49 +160,33 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                                     diff_class = 'pos'
                                 }
 
-                                // $('#details-table > tbody:last').append('<tr><th scope="row">' + band + '</th><td>' + grade + '</td><td><input type="number" value="' + basic + '" id="basic' + i + '" style="width: 100px;" class="basic-cl" /></td><td>' + perc + '%</td><td>' + housing + '</td><td>' + sdetails[index][0] + '</td><td>' + sdetails[index][1] + '</td><td>' + sdetails[index][2] + '</td><td>' + sdetails[index][3] + '</td><td>' + sdetails[index][4] + '</td><td>' + sdetails[index][5] + '</td><td>' + sdetails[index][6] + '</td><td>0</td><td>' + total + '</td><td class="diff-val ' + diff_class + '">' + diff + '</td></tr>');
+                                // $mj('#details-table > tbody:last').append('<tr><th scope="row">' + band + '</th><td>' + grade + '</td><td><input type="number" value="' + basic + '" id="basic' + i + '" style="width: 100px;" class="basic-cl" /></td><td>' + perc + '%</td><td>' + housing + '</td><td>' + sdetails[index][0] + '</td><td>' + sdetails[index][1] + '</td><td>' + sdetails[index][2] + '</td><td>' + sdetails[index][3] + '</td><td>' + sdetails[index][4] + '</td><td>' + sdetails[index][5] + '</td><td>' + sdetails[index][6] + '</td><td>0</td><td>' + total + '</td><td class="diff-val ' + diff_class + '">' + diff + '</td></tr>');
                                 percent_list.push(perc);
-                                
-                                if (index == 0) {
-                                    CTCcalculation['basicSal_mon'] = basic
-                                    CTCcalculation['carAllowance_mon'] = sdetails[index][3]
-                                    CTCcalculation['houseAllowance_mon'] = housing
-                                    CTCcalculation['specialAllowance_mon'] = 0
-                                    CTCcalculation['positionAllowance_mon'] = sdetails[index][0] = sdetails[index][1] + sdetails[index][2] + sdetails[index][4] + sdetails[index][5] + sdetails[index][6]
-                                    CTCcalculation['subTotalA_mon'] = total
-
-                                    CTCcalculation['basicSal_ann'] = basic * 12
-                                    CTCcalculation['carAllowance_ann'] = sdetails[index][3] * 12
-                                    CTCcalculation['houseAllowance_ann'] = housing * 12
-                                    CTCcalculation['specialAllowance_ann'] = 0 * 12
-                                    CTCcalculation['positionAllowance_ann'] = CTCcalculation['positionAllowance_mon'] * 12
-                                    CTCcalculation['subTotalA_ann'] = total * 12
-                                    console.log("CTC Calculations ->", CTCcalculation)
-                                }
-
-                                //color difference
                             }
 
                             best = true;
                         }
                     });
                 }
-
+                console.log("heelo 2")
+                console.log(actual)
                 var keys = [];
                 var e = 0;
                 for(var k in actual) keys.unshift(k);
-                $.each(keys, function(i) {
+                console.log("keys ->", keys)
+                keys.sort()
+                $mj.each(keys, function(i) {
                     console.log(keys[i]+'----'+actual[keys[i]]);
-                //});
+                    //});
                 
-                e++;
+                    e++;
                 
-                //actual.forEach(function(value, index) {
+                    //actual.forEach(function(value, index) {
                     console.log(value);
                     console.log(index);
                     
                     var value = actual[keys[i]];
-                    var index = keys[i];    
+                    var index = keys[i];
 
                     basic = Math.round(value);
                     housing = basic * 0.25;
@@ -221,28 +210,43 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                     }
                     
                     
-                    // $('#details-table-actual > tbody:last').append('<tr><th scope="row">' + band + '</th><td>' + grade + '</td><td>' + basic + '</td><td>' + perc + '%</td><td>' + housing + '</td><td>' + sdetails[index][0] + '</td><td>' + sdetails[index][1] + '</td><td>' + sdetails[index][2] + '</td><td>' + sdetails[index][3] + '</td><td>' + sdetails[index][4] + '</td><td>' + sdetails[index][5] + '</td><td>' + sdetails[index][6] + '</td><td>0</td><td>' + total + '</td><td class="diff-val">0</td></tr>');
-                    
-           
+                    // $mj('#details-table-actual > tbody:last').append('<tr><th scope="row">' + band + '</th><td>' + grade + '</td><td>' + basic + '</td><td>' + perc + '%</td><td>' + housing + '</td><td>' + sdetails[index][0] + '</td><td>' + sdetails[index][1] + '</td><td>' + sdetails[index][2] + '</td><td>' + sdetails[index][3] + '</td><td>' + sdetails[index][4] + '</td><td>' + sdetails[index][5] + '</td><td>' + sdetails[index][6] + '</td><td>0</td><td>' + total + '</td><td class="diff-val">0</td></tr>');           
                     // Print the best choice
                     if (e === 1) {
-                        // $("#basic-label").text(basic);
-                        // $("#basic-details").text(package + " * " + perc + "%");
+                        // $mj("#basic-label").text(basic);
+                        // $mj("#basic-details").text(package + " * " + perc + "%");
                         // console.log("Basic: " + basic);
-                        // $("#housing-label").text(housing);
-                        // $("#housing-details").text(basic + " * 25%");
-                        // $("#grade-label").text(grade);
+                        // $mj("#housing-label").text(housing);
+                        // $mj("#housing-details").text(basic + " * 25%");
+                        // $mj("#grade-label").text(grade);
                         // console.log("Housing: " + housing);
                         // console.log("Grade: " + grade + ", Grade total: " + structure[index]);
                         // console.log("Package Offer: " + total);
-                        // $("#total-label").text(total);
-                        // //$("#total-details").text("Grade " + grade + " [ " + value + " + " + basic + " + " + housing + " ]");
-                        // $("#total-details").text("Grade " + grade + " [ " + structure[index] + " ]");
+                        // $mj("#total-label").text(total);
+                        // //$mj("#total-details").text("Grade " + grade + " [ " + value + " + " + basic + " + " + housing + " ]");
+                        // $mj("#total-details").text("Grade " + grade + " [ " + structure[index] + " ]");
                         // console.log("____________________");
                     }
-                    
-                    
-                    
+                    CTCcalculation['basicPercentage'] = perc
+                    CTCcalculation['basicSal_mon'] = basic
+                    CTCcalculation['carAllowance_mon'] = sdetails[index][3]
+                    CTCcalculation['houseAllowance_mon'] = housing
+                    CTCcalculation['specialAllowance_mon'] = 0
+                    CTCcalculation['positionAllowance_mon'] = sdetails[index][0] + sdetails[index][1] + sdetails[index][2] + sdetails[index][4] + sdetails[index][5] + sdetails[index][6]
+                    CTCcalculation['subTotalA_mon'] = total
+                    CTCcalculation['basicSal_ann'] = basic * 12
+                    CTCcalculation['carAllowance_ann'] = sdetails[index][3] * 12
+                    CTCcalculation['houseAllowance_ann'] = housing * 12
+                    CTCcalculation['specialAllowance_ann'] = 0 * 12
+                    CTCcalculation['positionAllowance_ann'] = CTCcalculation['positionAllowance_mon'] * 12
+                    CTCcalculation['subTotalA_ann'] = total * 12
+                    CTCcalculation['grade'] = grade
+                    CTCcalculation['band'] = band
+                    const testObj = JSON.parse(JSON.stringify(CTCcalculation))
+                    console.log("CTC Calculations index ->", index)
+                    console.log("CTC Calculations ->", testObj)
+                    console.log("grade ->", CTCcalculation['grade'])
+                    console.log("band ->", CTCcalculation['band'])
                 });
 
                 
@@ -259,9 +263,9 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
 
 
                 //code for using special allowance value
-                if ($('#spec_allow').prop('checked')) {
-                    $("#details-table tbody tr").remove();
-                    $(".actual-package").hide();
+                if ($mj('#spec_allow').prop('checked')) {
+                    $mj("#details-table tbody tr").remove();
+                    $mj(".actual-package").hide();
                     //for (var i = pneg; i <= ppos; i++) {
                     for (var i = pneg; i <= pneg; i++) {
                         perc = i;
@@ -277,7 +281,7 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
 
                     console.log(i + "**************************");
                     total = 0;
-                    $.each(structure, function (index, value) {
+                    $mj.each(structure, function (index, value) {
                         grade = index + 1;
                         console.log(grade + ": " + value);
                         total = basic + housing + value;
@@ -304,27 +308,25 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                             best_val['total'] = total;
                             best_val['pkg_value'] = value;
                         }
-
-
                     });
                 }
 
                 if (best_val['percent'] > 0) {
                     console.log(i + "____________________");
                     if (best === false) {
-                        // $("#basic-label").text(best_val['basic']);
-                        // $("#basic-details").text(package + " * " + best_val['percent'] + "%");
-                        // $("#housing-label").text(best_val['housing']);
-                        // $("#housing-details").text(best_val['basic'] + " * 25%");
+                        // $mj("#basic-label").text(best_val['basic']);
+                        // $mj("#basic-details").text(package + " * " + best_val['percent'] + "%");
+                        // $mj("#housing-label").text(best_val['housing']);
+                        // $mj("#housing-details").text(best_val['basic'] + " * 25%");
                         // console.log("Housing: " + best_val['housing']);
-                        // $("#grade-label").text(best_val['grade']);
+                        // $mj("#grade-label").text(best_val['grade']);
 
                         // console.log("Package Offer: " + best_val['total']);
-                        // $("#total-label").text(best_val['total'] + best_val['diff']);
+                        // $mj("#total-label").text(best_val['total'] + best_val['diff']);
                         
-                        // //$("#total-details").text("Grade " + grade + " [ " + value + " + " + basic + " + " + housing + " ]");
-                        // // $("#total-details").text("Grade " + best_val['grade']);
-                        // $("#total-details").text("Grade " + best_val['grade'] + " [ " + best_val['pkg_value'] + " ]");
+                        // //$mj("#total-details").text("Grade " + grade + " [ " + value + " + " + basic + " + " + housing + " ]");
+                        // // $mj("#total-details").text("Grade " + best_val['grade']);
+                        // $mj("#total-details").text("Grade " + best_val['grade'] + " [ " + best_val['pkg_value'] + " ]");
                         // console.log("____________________");
                     }
 
@@ -339,141 +341,93 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                         }
                     best_val['total'] += best_val['diff'];
                     var best_grade = best_val['grade'];
-                    // $('#details-table > tbody:last').append('<tr><th scope="row">' + band + '</th><td>' + best_val['grade'] + '</td><td>' + best_val['basic'] + '</td><td>' + best_val['percent'] + '%</td><td>' + best_val['housing'] + '</td><td>' + sdetails[best_grade - 1][0] + '</td><td>' + sdetails[best_grade - 1][1] + '</td><td>' + sdetails[best_grade - 1][2] + '</td><td>' + sdetails[best_grade - 1][3] + '</td><td>' + sdetails[best_grade - 1][4] + '</td><td>' + sdetails[best_grade - 1][5] + '</td><td>' + sdetails[best_grade - 1][6] + '</td><td>' + best_val['diff'] + '</td><td>' + best_val['total'] + '</td><td>0</td></tr>');
-                    // $('#special-allow-label').text(best_val['diff']);
+                    // $mj('#details-table > tbody:last').append('<tr><th scope="row">' + band + '</th><td>' + best_val['grade'] + '</td><td>' + best_val['basic'] + '</td><td>' + best_val['percent'] + '%</td><td>' + best_val['housing'] + '</td><td>' + sdetails[best_grade - 1][0] + '</td><td>' + sdetails[best_grade - 1][1] + '</td><td>' + sdetails[best_grade - 1][2] + '</td><td>' + sdetails[best_grade - 1][3] + '</td><td>' + sdetails[best_grade - 1][4] + '</td><td>' + sdetails[best_grade - 1][5] + '</td><td>' + sdetails[best_grade - 1][6] + '</td><td>' + best_val['diff'] + '</td><td>' + best_val['total'] + '</td><td>0</td></tr>');
+                    // $mj('#special-allow-label').text(best_val['diff']);
                     best = true;
+                    console.log("With Special Allowance")
+                    CTCcalculation['basicPercentage'] = best_val['percent']
+                    CTCcalculation['basicSal_mon'] = best_val['basic']
+                    CTCcalculation['carAllowance_mon'] = sdetails[best_grade - 1][3]
+                    CTCcalculation['houseAllowance_mon'] = best_val['housing']
+                    CTCcalculation['specialAllowance_mon'] = best_val['diff']
+                    CTCcalculation['positionAllowance_mon'] = sdetails[best_grade - 1][0] + sdetails[best_grade - 1][1] + sdetails[best_grade - 1][2] + sdetails[best_grade - 1][4] + sdetails[best_grade - 1][5] + sdetails[best_grade - 1][6]
+                    CTCcalculation['subTotalA_mon'] = best_val['total']
+                    CTCcalculation['basicSal_ann'] = basic * 12
+                    CTCcalculation['carAllowance_ann'] = sdetails[best_grade - 1][3] * 12
+                    CTCcalculation['houseAllowance_ann'] = housing * 12
+                    CTCcalculation['specialAllowance_ann'] = best_val['diff'] * 12
+                    CTCcalculation['positionAllowance_ann'] = CTCcalculation['positionAllowance_mon'] * 12
+                    CTCcalculation['subTotalA_ann'] = best_val['total'] * 12
+                    CTCcalculation['grade'] = best_val['grade']
+                    CTCcalculation['band'] = band
+                    console.log("CTC Calculations index ->", best_grade - 1)
+                    const testObj = JSON.parse(JSON.stringify(CTCcalculation))
+                    console.log("CTC Calculations ->", testObj)
+                    console.log("grade ->", CTCcalculation['grade'])
+                    console.log("band ->", CTCcalculation['band'])
                 }
             }
+        
         return CTCcalculation;			
     }
-				
- 
-	$mj("#calculateButton").click(function(event){
-
+	$mj("#calculateButton").click(function(event) {
 		event.preventDefault();
-
-		var offerCtc = 10000
-		var negativeDiff = 200;
-        var positiveDiff = 200;
-        var minBasicP = 50;
-
-        var maxBasicP = 60;
-
-        var sal  = calcCTC(offerCtc, negativeDiff, positiveDiff, minBasicP, maxBasicP);
-
-		
-    if($mj.isNumeric(inputCTC) )
-	{ 
-
-
-
-        for( var key in sal){
-
-
-            if(key == 'selectedGrade' || key == 'selectedField'){
-            
-                        var salComponent = (sal[key]);
-			 			//var round = salComponent.toLocaleString('en-IN');
-						$mj('[name="'+key+'"]').val(salComponent);
-        				
-
-            }
-            else if(key == 'BasicSal_mon1' || key == 'BasicSal_an1' || key == 'hra_mon1' || key == 'hra_an1' ||key == 'personalAllowance_mon1' || key == 'personalAllowance_an1' || key == 'fixedPay_mon1' || key == 'lta_mon1' || key == 'lta_an1' || key == 'pf_mon1' || key == 'pf_ann1'|| key == 'gratuity_mon1' || key == 'gratuity_an1' || key == 'flexi_mon1' || key == 'flexi_an1' || key == 'annualCTC_mon1'|| key == 'annualCTC_an1' || key == 'AnnualCTCgratuity_mon1' || key == 'AnnualCTCgratuity_an1' || key == 'half_performancePay_mon1' || key == 'ctc_mon1' || key == 'ctc_an1')
-            {
-            	        var salComponent = Math.round(sal[key]);
-			 			//var round = salComponent.toLocaleString('en-IN');
-						$mj('[name="'+key+'"]').val(salComponent);
-        				
-            }
-
-            else
-            {
-            	        var salComponent = Math.round(sal[key]);
-			 			var round = salComponent.toLocaleString('en-IN');
-						$mj('[name="'+key+'"]').val(round);
-        				
-            }
-
-			 			
-	 			
-
-
-					var baseId_mon = $mj('[name="'+key+'"]').attr("id");
-					
-					$mj('[name="'+key+'"]').addClass('unsaved');
-					juic.fire(baseId_mon,"_onChange",event);
-
-			 
-			 }
-
-
-		}
-
-		else
-		{
-			alert("Please Select Level & structure");
-		}
-	
-      
-       });
-	
-
-	
-		$mj('#Level').on('change', function(){
-   //console.log($('#typeOfGlass').val());
-  		  $mj('#filedBackoffice').html('');
-   		 if($mj('#Level').val()=='L7O' || $mj('#Level').val()=='L8O' || $mj('#Level').val()=='L9O' ){
-
-   		   $mj('#filedBackoffice').append('<option value="select">Select Level</option>');	
-     	   $mj('#filedBackoffice').append('<option value="field">Field</option>');
-     	   $mj('#filedBackoffice').append('<option value="backOffice">Back Office</option>');
-     	   
-   		 }
-   		 else if ($mj('#Level').val()=='L6M') {
-       		 $mj('#filedBackoffice').append('<option value="L6M">L6M</option>');
-       		 
-    		}
-
-    	else if ($mj('#Level').val()=='L5M') {
-       		 $mj('#filedBackoffice').append('<option value="L5M">L5M</option>');
-       		 
-    		}
-
-    	else if ($mj('#Level').val()=='L5DH') {
-       		 $mj('#filedBackoffice').append('<option value="L5DH">L5DH</option>');
-       		 
-    		}
-
-    	else if ($mj('#Level').val()=='L4DH') {
-       		 $mj('#filedBackoffice').append('<option value="L4DH">L4DH</option>');
-       		 
-    		}
-    	else if ($mj('#Level').val()=='L3DH') {
-       		 $mj('#filedBackoffice').append('<option value="L3DH">L3DH</option>');
-       		 
-    		}	
-
-    	else if ($mj('#Level').val()=='L3E') {
-       		 $mj('#filedBackoffice').append('<option value="L3E">L3E</option>');
-       		 
-    		}
-
-    	else if ($mj('#Level').val()=='L2E') {
-       		 $mj('#filedBackoffice').append('<option value="L2E">L2E</option>');
-       		 
-    		}	
-    	else if ($mj('#Level').val()=='L2S') {
-       		 $mj('#filedBackoffice').append('<option value="L2S">L2S</option>');
-       		 
-    		}
-    	else if ($mj('#Level').val()=='L1S') {
-       		 $mj('#filedBackoffice').append('<option value="L1S">L1S</option>');
-       		 
-    		}	
-    			
-		});
-
-
-		
-
+		var offerCtc = $mj("#inputCTC").val()
+		var negativeDiff = $mj("input[name='negativeDiff']").val() > 0 ? $mj("input[name='negativeDiff']").val() * -1 : $mj("input[name='negativeDiff']").val();
+        var positiveDiff = $mj("input[name='positiveDiff']").val();
+        var minBasicP = $mj("input[name='minBasicP']").val();
+        var maxBasicP = $mj("input[name='maxBasicP']").val();
+        if (offerCtc == null) {
+            alert("Please enter Offered CTC!");
+        }
+        else if (negativeDiff == null) {
+            alert("Please enter Negative Difference!");
+        }
+        else if (positiveDiff == null) {
+            alert("Please enter Positive Difference!");
+        }	 
+        else if (minBasicP == null) {
+            alert("Please enter Minimum Basic Percentage!");
+        }	 
+        else if (maxBasicP == null) {
+            alert("Please enter Maximum Basic Percentage!");
+        }	
+        if (!$mj.isNumeric(offerCtc)) {
+            alert("Please enter a Numeric Value (Offered CTC)!");
+        }
+        else if (!$mj.isNumeric(negativeDiff)) {
+            alert("Please enter a Numeric Value (Negative Difference)!");
+        }	
+        else if (!$mj.isNumeric(positiveDiff)) {
+            alert("Please enter a Numeric Value (Positive Difference)!");
+        }	 
+        else if (!$mj.isNumeric(minBasicP)) {
+            alert("Please enter a Numeric Value (Minimum Basic Percentage)!");
+        }	 
+        else if (!$mj.isNumeric(maxBasicP)) {
+            alert("Please enter a Numeric Value (Maximum Basic Percentage)!");
+        }	  
+        else 
+        {
+            var sal  = calcCTC(offerCtc, negativeDiff, positiveDiff, minBasicP, maxBasicP);
+            $mj("input[name='candidateBand']").val(sal['band'])
+            $mj("input[name='candidateGrade']").val(sal['grade'])
+            $mj("input[name='inputCTC_ann']").val(sal['subTotalA_mon'])
+            $mj("input[name='basicPercentage']").val(sal['basicPercentage'])
+            $mj("input[name='basicSal_mon']").val(sal['basicSal_mon'])
+            $mj("input[name='basicSal_ann']").val(sal['basicSal_ann'])
+            $mj("input[name='carAllowance_mon']").val(sal['carAllowance_mon'])
+            $mj("input[name='carAllowance_ann']").val(sal['carAllowance_ann'])
+            $mj("input[name='houseAllowance_mon']").val(sal['houseAllowance_mon'])
+            $mj("input[name='houseAllowance_ann']").val(sal['houseAllowance_ann'])
+            $mj("input[name='specialAllowance_mon']").val(sal['specialAllowance_mon'])
+            $mj("input[name='specialAllowance_ann']").val(sal['specialAllowance_ann'])
+            $mj("input[name='positionAllowance_mon']").val(sal['positionAllowance_mon'])
+            $mj("input[name='positionAllowance_ann']").val(sal['positionAllowance_ann'])
+            $mj("input[name='subTotalA_mon']").val(sal['subTotalA_mon'])
+            $mj("input[name='subTotalA_ann']").val(sal['subTotalA_ann'])
+        }
+        
+    
+    });
 });
