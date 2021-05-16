@@ -368,15 +368,16 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                 }
             }
         
-        return CTCcalculation;			
+        return CTCcalculation;
     }
 	$mj("#calculateButton").click(function(event) {
 		event.preventDefault();
 		var offerCtc = $mj("input[name='inputCTC_ann']").val()
-		var negativeDiff = $mj("input[name='negativeDiff']").val() > 0 ? $mj("input[name='negativeDiff']").val() * -1 : $mj("input[name='negativeDiff']").val();
+		var negativeDiff = $mj("input[name='negativeDiff']").val() > 0 ? ($mj("input[name='negativeDiff']").val() * -1).toString() : $mj("input[name='negativeDiff']").val();
         var positiveDiff = $mj("input[name='positiveDiff']").val();
         var minBasicP = $mj("input[name='minBasicP']").val();
         var maxBasicP = $mj("input[name='maxBasicP']").val();
+        console.log(negativeDiff)
         if (offerCtc.trim() == "") {
             alert("Please enter Offered CTC!");
         }
