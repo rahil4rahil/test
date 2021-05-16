@@ -392,7 +392,7 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
         else if (maxBasicP.trim() == "") {
             alert("Please enter Maximum Basic Percentage!");
         }	
-        if (!$mj.isNumeric(offerCtc)) {
+        else if (!$mj.isNumeric(offerCtc)) {
             alert("Please enter a Numeric Value (Offered CTC)!");
         }
         else if (!$mj.isNumeric(negativeDiff)) {
