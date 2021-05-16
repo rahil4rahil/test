@@ -377,19 +377,19 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
         var positiveDiff = $mj("input[name='positiveDiff']").val();
         var minBasicP = $mj("input[name='minBasicP']").val();
         var maxBasicP = $mj("input[name='maxBasicP']").val();
-        if (offerCtc == null) {
+        if (offerCtc.trim() == "") {
             alert("Please enter Offered CTC!");
         }
-        else if (negativeDiff == null) {
+        else if (negativeDiff.trim() == "") {
             alert("Please enter Negative Difference!");
         }
-        else if (positiveDiff == null) {
+        else if (positiveDiff.trim() == "") {
             alert("Please enter Positive Difference!");
         }	 
-        else if (minBasicP == null) {
+        else if (minBasicP.trim() == "") {
             alert("Please enter Minimum Basic Percentage!");
         }	 
-        else if (maxBasicP == null) {
+        else if (maxBasicP.trim() == "") {
             alert("Please enter Maximum Basic Percentage!");
         }	
         if (!$mj.isNumeric(offerCtc)) {
