@@ -69,8 +69,8 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                     "positionAllowance_ann": 0,
                     "subTotalA_mon": 0,
                     "subTotalA_ann": 0,
-                    "grade": 0,
-                    "band": 0
+                    "candidateGrade": 0,
+                    "candidateBand": 0
 				}
 				
                
@@ -240,13 +240,13 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                     CTCcalculation['specialAllowance_ann'] = 0 * 12
                     CTCcalculation['positionAllowance_ann'] = CTCcalculation['positionAllowance_mon'] * 12
                     CTCcalculation['subTotalA_ann'] = total * 12
-                    CTCcalculation['grade'] = grade
-                    CTCcalculation['band'] = band
+                    CTCcalculation['candidateGrade'] = grade
+                    CTCcalculation['candidateBand'] = band
                     const testObj = JSON.parse(JSON.stringify(CTCcalculation))
                     console.log("CTC Calculations index ->", index)
                     console.log("CTC Calculations ->", testObj)
-                    console.log("grade ->", CTCcalculation['grade'])
-                    console.log("band ->", CTCcalculation['band'])
+                    console.log("grade ->", CTCcalculation['candidateGrade'])
+                    console.log("band ->", CTCcalculation['candidateBand'])
                 });
 
                 
@@ -358,16 +358,15 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                     CTCcalculation['specialAllowance_ann'] = best_val['diff'] * 12
                     CTCcalculation['positionAllowance_ann'] = CTCcalculation['positionAllowance_mon'] * 12
                     CTCcalculation['subTotalA_ann'] = best_val['total'] * 12
-                    CTCcalculation['grade'] = best_val['grade']
-                    CTCcalculation['band'] = band
+                    CTCcalculation['candidateGrade'] = best_val['grade']
+                    CTCcalculation['candidateBand'] = band
                     console.log("CTC Calculations index ->", best_grade - 1)
                     const testObj = JSON.parse(JSON.stringify(CTCcalculation))
                     console.log("CTC Calculations ->", testObj)
-                    console.log("grade ->", CTCcalculation['grade'])
-                    console.log("band ->", CTCcalculation['band'])
+                    console.log("grade ->", CTCcalculation['candidateGrade'])
+                    console.log("band ->", CTCcalculation['candidateBand'])
                 }
             }
-        
         return CTCcalculation;
     }
 	$mj("#calculateButton").click(function(event) {
@@ -411,8 +410,8 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
         else 
         {
             var sal  = calcCTC(offerCtc, negativeDiff, positiveDiff, minBasicP, maxBasicP);
-            $mj("input[name='candidateBand']").val(sal['band'])
-            $mj("input[name='candidateGrade']").val(sal['grade'])
+            $mj("input[name='candidateBand']").val(sal['candidateBand'])
+            $mj("input[name='candidateGrade']").val(sal['candidateGrade'])
             $mj("input[name='inputCTC_ann']").val(sal['subTotalA_mon'])
             $mj("input[name='basicSal_mon']").val(sal['basicSal_mon'])
             $mj("input[name='basicSal_ann']").val(sal['basicSal_ann'])
@@ -427,9 +426,12 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
             $mj("input[name='subTotalA_mon']").val(sal['subTotalA_mon'])
             $mj("input[name='subTotalA_ann']").val(sal['subTotalA_ann'])
             $mj("input[name='basicPercentage']").val(sal['basicPercentage'])
-            juic.fire($mj('[name="basicPercentage"]').attr("id"),"_onChange",event);
+            for (var key in sal) {
+                console.log(key)
+                let id = $mj("[name='"+ key +"']").attr("id")
+                console.log(id)
+                juic.fire($mj('[name='+ id +']').attr("id"),"_onChange",event);
+            }   
         }
-        
-    
     });
 });
