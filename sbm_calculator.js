@@ -263,7 +263,7 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
 
 
                 //code for using special allowance value
-                if ($mj('#spec_allow').prop('checked')) {
+                if ($mj("input[name='ctcWithSpecialAllowance']").prop('checked')) {
                     $mj("#details-table tbody tr").remove();
                     $mj(".actual-package").hide();
                     //for (var i = pneg; i <= ppos; i++) {
