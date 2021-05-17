@@ -427,6 +427,7 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
             $mj("input[name='positionAllowance_ann']").val(sal['positionAllowance_ann'])
             $mj("input[name='subTotalA_mon']").val(sal['subTotalA_mon'])
             $mj("input[name='subTotalA_ann']").val(sal['subTotalA_ann'])
+            juic.fire($mj('[name="basicPercentage"]').attr("id"),"_onChange",event);
         }
         
     
