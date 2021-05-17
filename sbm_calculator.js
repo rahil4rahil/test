@@ -414,7 +414,6 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
             $mj("input[name='candidateBand']").val(sal['band'])
             $mj("input[name='candidateGrade']").val(sal['grade'])
             $mj("input[name='inputCTC_ann']").val(sal['subTotalA_mon'])
-            $mj("input[name='basicPercentage']").val(sal['basicPercentage'])
             $mj("input[name='basicSal_mon']").val(sal['basicSal_mon'])
             $mj("input[name='basicSal_ann']").val(sal['basicSal_ann'])
             $mj("input[name='carAllowance_mon']").val(sal['carAllowance_mon'])
@@ -427,6 +426,7 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
             $mj("input[name='positionAllowance_ann']").val(sal['positionAllowance_ann'])
             $mj("input[name='subTotalA_mon']").val(sal['subTotalA_mon'])
             $mj("input[name='subTotalA_ann']").val(sal['subTotalA_ann'])
+            $mj("input[name='basicPercentage']").val(sal['basicPercentage'])
             juic.fire($mj('[name="basicPercentage"]').attr("id"),"_onChange",event);
         }
         
