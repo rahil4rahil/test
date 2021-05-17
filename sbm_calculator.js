@@ -56,7 +56,6 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                 console.log(neg + ":: " + pos);
 
 				var CTCcalculation = {
-                    "basicPercentage": 0,
                     "basicSal_mon": 0,
                     "basicSal_ann": 0,
                     "carAllowance_mon": 0,
@@ -70,7 +69,8 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                     "subTotalA_mon": 0,
                     "subTotalA_ann": 0,
                     "candidateGrade": 0,
-                    "candidateBand": 0
+                    "candidateBand": 0,
+                    "basicPercentage": 0
 				}
 				
                
