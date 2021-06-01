@@ -11,8 +11,8 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
         console.log("heelo")
 		var calcCTC =  function(offerCtc, negativeDiff, positiveDiff, minBasicP, maxBasicP) {
 
-            var structure = [1750, 2600, 3550, 4100, 5450, 7550, 9450, 11850, 13950, 17600];
-            //var structure = [1750, 2600, 3550, 4100, 5450, 7550, 9450, 11850, 13950, 17600, 23750, 27000];
+            // var structure = [1750, 2600, 3550, 4100, 5450, 7550, 9450, 11850, 13950, 17600];
+            var structure = [1750, 2600, 3550, 4100, 5450, 7550, 9450, 11850, 13950, 17600, 23750, 27000];
 
 
             var sdetails = [
@@ -26,19 +26,23 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                 [2400, 2500, 5000, 650, 500, 500, 300],
                 [2800, 3500, 5500, 650, 500, 600, 400],
                 [4800, 3400, 6250, 650, 1000, 1000, 500],
+                [6250, 3750, 7500, 2500, 1250, 1250, 1250],
+                [7000, 5000, 8000, 2500, 1500, 1500, 1500],
             ];
 
             var bands = [
-                [1500, 3200],
-                [3060, 5400],
-                [5355, 7560],
-                [7497, 10584],
-                [9146, 13989],
-                [11159, 17066],
-                [13613, 20821],
-                [16608, 25401],
-                [19100, 29211],
-                [22481, 33593]
+                [1500, 3600],
+                [3000, 5800],
+                [4500, 8700],
+                [6750, 12350],
+                [10125, 17125],
+                [12150, 20550],
+                [14580, 24380],
+                [17496, 28696],
+                [20995, 33595],
+                [23095, 37095],
+                [25404, 46404],
+                [27945, 55945]
             ];
 
 				var package = parseFloat(offerCtc);
@@ -70,6 +74,19 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                     "subTotalA_ann": 0,
                     "candidateGrade": 0,
                     "candidateBand": 0,
+                    "candidateBand": 0,
+                    "maintenanceUtilityAllow_mon": 0,
+                    "maintenanceUtilityAllow_ann": 0,
+                    "schoolAssistAllow_mon": 0,
+                    "schoolAssistAllow_ann": 0,
+                    "vacationTicketAllow_mon": 0,
+                    "vacationTicketAllow_ann": 0,
+                    "mobileAllow_mon": 0,
+                    "mobileAllow_ann": 0,
+                    "mileagesAllow_mon": 0,
+                    "mileagesAllow_ann": 0,
+                    "vehicleInsuranceAllow_mon": 0,
+                    "vehicleInsuranceAllow_ann": 0,
                     "basicPercentage": 0
 				}
 				
@@ -242,6 +259,18 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                     CTCcalculation['subTotalA_ann'] = total * 12
                     CTCcalculation['candidateGrade'] = grade
                     CTCcalculation['candidateBand'] = band
+                    CTCcalculation['maintenanceUtilityAllow_mon'] = sdetails[index][0]
+                    CTCcalculation['maintenanceUtilityAllow_ann'] = sdetails[index][0] * 12
+                    CTCcalculation['schoolAssistAllow_mon'] = sdetails[index][2]
+                    CTCcalculation['schoolAssistAllow_ann'] = sdetails[index][2] * 12
+                    CTCcalculation['vacationTicketAllow_mon'] = sdetails[index][1]
+                    CTCcalculation['vacationTicketAllow_ann'] = sdetails[index][1] * 12
+                    CTCcalculation['mobileAllow_mon'] = sdetails[index][6]
+                    CTCcalculation['mobileAllow_ann'] = sdetails[index][6] * 12
+                    CTCcalculation['mileagesAllow_mon'] = sdetails[index][5] 
+                    CTCcalculation['mileagesAllow_ann'] = sdetails[index][5] * 12
+                    CTCcalculation['vehicleInsuranceAllow_mon'] = sdetails[index][4]
+                    CTCcalculation['vehicleInsuranceAllow_ann'] = sdetails[index][4] * 12
                     const testObj = JSON.parse(JSON.stringify(CTCcalculation))
                     console.log("CTC Calculations index ->", index)
                     console.log("CTC Calculations ->", testObj)
@@ -360,6 +389,18 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                     CTCcalculation['subTotalA_ann'] = best_val['total'] * 12
                     CTCcalculation['candidateGrade'] = best_val['grade']
                     CTCcalculation['candidateBand'] = band
+                    CTCcalculation['maintenanceUtilityAllow_mon'] = sdetails[best_grade - 1][0]
+                    CTCcalculation['maintenanceUtilityAllow_ann'] = sdetails[best_grade - 1][0] * 12
+                    CTCcalculation['schoolAssistAllow_mon'] = sdetails[best_grade - 1][2]
+                    CTCcalculation['schoolAssistAllow_ann'] = sdetails[best_grade - 1][2] * 12
+                    CTCcalculation['vacationTicketAllow_mon'] = sdetails[best_grade - 1][1]
+                    CTCcalculation['vacationTicketAllow_ann'] = sdetails[best_grade - 1][1] * 12
+                    CTCcalculation['mobileAllow_mon'] = sdetails[best_grade - 1][6]
+                    CTCcalculation['mobileAllow_ann'] = sdetails[best_grade - 1][6] * 12
+                    CTCcalculation['mileagesAllow_mon'] = sdetails[best_grade - 1][5] 
+                    CTCcalculation['mileagesAllow_ann'] = sdetails[best_grade - 1][5] * 12
+                    CTCcalculation['vehicleInsuranceAllow_mon'] = sdetails[best_grade - 1][4]
+                    CTCcalculation['vehicleInsuranceAllow_ann'] = sdetails[best_grade - 1][4] * 12
                     console.log("CTC Calculations index ->", best_grade - 1)
                     const testObj = JSON.parse(JSON.stringify(CTCcalculation))
                     console.log("CTC Calculations ->", testObj)
@@ -425,6 +466,18 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
             $mj("input[name='positionAllowance_ann']").val(sal['positionAllowance_ann'])
             $mj("input[name='subTotalA_mon']").val(sal['subTotalA_mon'])
             $mj("input[name='subTotalA_ann']").val(sal['subTotalA_ann'])
+            $mj("input[name='maintenanceUtilityAllow_mon']").val(sal['maintenanceUtilityAllow_mon'])
+            $mj("input[name='maintenanceUtilityAllow_ann']").val(sal['maintenanceUtilityAllow_ann'])
+            $mj("input[name='schoolAssistAllow_mon']").val(sal['schoolAssistAllow_mon'])
+            $mj("input[name='schoolAssistAllow_ann']").val(sal['schoolAssistAllow_ann'])
+            $mj("input[name='vacationTicketAllow_mon']").val(sal['vacationTicketAllow_mon'])
+            $mj("input[name='vacationTicketAllow_ann']").val(sal['vacationTicketAllow_ann'])
+            $mj("input[name='mobileAllow_mon']").val(sal['mobileAllow_mon'])
+            $mj("input[name='mobileAllow_ann']").val(sal['mobileAllow_ann'])
+            $mj("input[name='mileagesAllow_mon']").val(sal['mileagesAllow_mon'])
+            $mj("input[name='mileagesAllow_ann']").val(sal['mileagesAllow_ann'])
+            $mj("input[name='vehicleInsuranceAllow_mon']").val(sal['vehicleInsuranceAllow_mon'])
+            $mj("input[name='vehicleInsuranceAllow_ann']").val(sal['vehicleInsuranceAllow_ann'])
             $mj("input[name='basicPercentage']").val(sal['basicPercentage'])
             for (var key in sal) {
                 console.log(key)
