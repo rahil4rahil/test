@@ -453,7 +453,7 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
             var sal  = calcCTC(offerCtc, negativeDiff, positiveDiff, minBasicP, maxBasicP);
             $mj("input[name='candidateBand']").val(sal['candidateBand'])
             $mj("input[name='candidateGrade']").val(sal['candidateGrade'])
-            $mj("input[name='inputCTC_ann']").val(sal['subTotalA_mon'])
+            // $mj("input[name='inputCTC_ann']").val(sal['subTotalA_mon'])
             $mj("input[name='basicSal_mon']").val(sal['basicSal_mon'])
             $mj("input[name='basicSal_ann']").val(sal['basicSal_ann'])
             $mj("input[name='carAllowance_mon']").val(sal['carAllowance_mon'])
