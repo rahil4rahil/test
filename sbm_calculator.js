@@ -9,7 +9,7 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
 
 	$mj(document).ready(function() {
         console.log("heelo")
-		var calcCTC =  function(offerCtc, negativeDiff, positiveDiff, minBasicP, maxBasicP) {
+		var calcCTC =  function(offerCtc, minBasicP, maxBasicP) {
 
             // var structure = [1750, 2600, 3550, 4100, 5450, 7550, 9450, 11850, 13950, 17600];
             var structure = [1750, 2600, 3550, 4100, 5450, 7550, 9450, 11850, 13950, 17600, 23750, 27000];
@@ -46,8 +46,8 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
             ];
 
 				var package = parseFloat(offerCtc);
-                var neg = parseInt(negativeDiff) * -1;
-                var pos = parseInt(positiveDiff);
+                var neg = 0;
+                var pos = 0;
 
                 var pneg = parseInt(minBasicP);
                 var ppos = parseInt(maxBasicP);
@@ -108,9 +108,9 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                     //i += 0.1;
                     perc = i;
                     basic = (package * i) / 100;
-                    if (basic > 20000) {
-                        basic = 20000;
-                        perc = ((20000 / package) * 100).toFixed(2);
+                    if (basic > 55945) {
+                        basic = 55945;
+                        perc = ((55945 / package) * 100).toFixed(2);
                     }
 
                     housing = basic * 0.25;
@@ -140,12 +140,12 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                         console.log("neg ->", neg)
                         console.log("package - neg -> ", (package - neg))
 
-                        if (total >= (package - neg) && total <= (package + pos)) {
+                        if (total >= (package - neg)) {
                                                 
                             //Formula is x+(x*0.25) = total_package - grade_total
                             // x = ((total_package - grade_total)*4)/5
                             var bbsaic = ((package - value)*4)/5;
-                            if (bbsaic < 20000) {
+                            if (bbsaic < 55945) {
                                 actual[grade] = bbsaic;
                             }
 
@@ -166,7 +166,7 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                             //     console.log("____________________");
                             // }
 
-                            if (basic == 20000 && jQuery.inArray(perc, percent_list) !== -1) {
+                            if (basic == 55945 && jQuery.inArray(perc, percent_list) !== -1) {
                                 //do nothing
                             } else {
                                 diff = total - package;
@@ -195,20 +195,19 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                 $mj.each(keys, function(i) {
                     console.log(keys[i]+'----'+actual[keys[i]]);
                     //});
-                
                     e++;
-                
                     //actual.forEach(function(value, index) {
                     console.log(value);
                     console.log(index);
                     
                     var value = actual[keys[i]];
                     var index = keys[i];
-
+                    
                     basic = Math.round(value);
                     housing = basic * 0.25;
                     housing = Math.round(housing);
                     perc = ((value / package) * 100).toFixed(2);
+                    console.log("basic percentage -->", perc)
                     grade = index;
                      
                     index = index-1;
@@ -229,7 +228,40 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                     
                     // $mj('#details-table-actual > tbody:last').append('<tr><th scope="row">' + band + '</th><td>' + grade + '</td><td>' + basic + '</td><td>' + perc + '%</td><td>' + housing + '</td><td>' + sdetails[index][0] + '</td><td>' + sdetails[index][1] + '</td><td>' + sdetails[index][2] + '</td><td>' + sdetails[index][3] + '</td><td>' + sdetails[index][4] + '</td><td>' + sdetails[index][5] + '</td><td>' + sdetails[index][6] + '</td><td>0</td><td>' + total + '</td><td class="diff-val">0</td></tr>');           
                     // Print the best choice
-                    if (e === 1) {
+                    if (perc >= minBasicP && perc <= maxBasicP) {
+                        CTCcalculation['basicPercentage'] = perc
+                        CTCcalculation['basicSal_mon'] = basic
+                        CTCcalculation['carAllowance_mon'] = sdetails[index][3]
+                        CTCcalculation['houseAllowance_mon'] = housing
+                        CTCcalculation['specialAllowance_mon'] = 0
+                        CTCcalculation['positionAllowance_mon'] = sdetails[index][0] + sdetails[index][1] + sdetails[index][2] + sdetails[index][4] + sdetails[index][5] + sdetails[index][6]
+                        CTCcalculation['subTotalA_mon'] = total
+                        CTCcalculation['basicSal_ann'] = basic * 12
+                        CTCcalculation['carAllowance_ann'] = sdetails[index][3] * 12
+                        CTCcalculation['houseAllowance_ann'] = housing * 12
+                        CTCcalculation['specialAllowance_ann'] = 0 * 12
+                        CTCcalculation['positionAllowance_ann'] = CTCcalculation['positionAllowance_mon'] * 12
+                        CTCcalculation['subTotalA_ann'] = total * 12
+                        CTCcalculation['candidateGrade'] = grade
+                        CTCcalculation['candidateBand'] = band
+                        CTCcalculation['maintenanceUtilityAllow_mon'] = sdetails[index][0]
+                        CTCcalculation['maintenanceUtilityAllow_ann'] = sdetails[index][0] * 12
+                        CTCcalculation['schoolAssistAllow_mon'] = sdetails[index][2]
+                        CTCcalculation['schoolAssistAllow_ann'] = sdetails[index][2] * 12
+                        CTCcalculation['vacationTicketAllow_mon'] = sdetails[index][1]
+                        CTCcalculation['vacationTicketAllow_ann'] = sdetails[index][1] * 12
+                        CTCcalculation['mobileAllow_mon'] = sdetails[index][6]
+                        CTCcalculation['mobileAllow_ann'] = sdetails[index][6] * 12
+                        CTCcalculation['mileagesAllow_mon'] = sdetails[index][5] 
+                        CTCcalculation['mileagesAllow_ann'] = sdetails[index][5] * 12
+                        CTCcalculation['vehicleInsuranceAllow_mon'] = sdetails[index][4]
+                        CTCcalculation['vehicleInsuranceAllow_ann'] = sdetails[index][4] * 12
+                        const testObj = JSON.parse(JSON.stringify(CTCcalculation))
+                        console.log("CTC Calculations index ->", index)
+                        console.log("CTC Calculations ->", testObj)
+                        console.log("grade ->", CTCcalculation['candidateGrade'])
+                        console.log("band ->", CTCcalculation['candidateBand'])
+                        return;
                         // $mj("#basic-label").text(basic);
                         // $mj("#basic-details").text(package + " * " + perc + "%");
                         // console.log("Basic: " + basic);
@@ -244,38 +276,38 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                         // $mj("#total-details").text("Grade " + grade + " [ " + structure[index] + " ]");
                         // console.log("____________________");
                     }
-                    CTCcalculation['basicPercentage'] = perc
-                    CTCcalculation['basicSal_mon'] = basic
-                    CTCcalculation['carAllowance_mon'] = sdetails[index][3]
-                    CTCcalculation['houseAllowance_mon'] = housing
-                    CTCcalculation['specialAllowance_mon'] = 0
-                    CTCcalculation['positionAllowance_mon'] = sdetails[index][0] + sdetails[index][1] + sdetails[index][2] + sdetails[index][4] + sdetails[index][5] + sdetails[index][6]
-                    CTCcalculation['subTotalA_mon'] = total
-                    CTCcalculation['basicSal_ann'] = basic * 12
-                    CTCcalculation['carAllowance_ann'] = sdetails[index][3] * 12
-                    CTCcalculation['houseAllowance_ann'] = housing * 12
-                    CTCcalculation['specialAllowance_ann'] = 0 * 12
-                    CTCcalculation['positionAllowance_ann'] = CTCcalculation['positionAllowance_mon'] * 12
-                    CTCcalculation['subTotalA_ann'] = total * 12
-                    CTCcalculation['candidateGrade'] = grade
-                    CTCcalculation['candidateBand'] = band
-                    CTCcalculation['maintenanceUtilityAllow_mon'] = sdetails[index][0]
-                    CTCcalculation['maintenanceUtilityAllow_ann'] = sdetails[index][0] * 12
-                    CTCcalculation['schoolAssistAllow_mon'] = sdetails[index][2]
-                    CTCcalculation['schoolAssistAllow_ann'] = sdetails[index][2] * 12
-                    CTCcalculation['vacationTicketAllow_mon'] = sdetails[index][1]
-                    CTCcalculation['vacationTicketAllow_ann'] = sdetails[index][1] * 12
-                    CTCcalculation['mobileAllow_mon'] = sdetails[index][6]
-                    CTCcalculation['mobileAllow_ann'] = sdetails[index][6] * 12
-                    CTCcalculation['mileagesAllow_mon'] = sdetails[index][5] 
-                    CTCcalculation['mileagesAllow_ann'] = sdetails[index][5] * 12
-                    CTCcalculation['vehicleInsuranceAllow_mon'] = sdetails[index][4]
-                    CTCcalculation['vehicleInsuranceAllow_ann'] = sdetails[index][4] * 12
-                    const testObj = JSON.parse(JSON.stringify(CTCcalculation))
-                    console.log("CTC Calculations index ->", index)
-                    console.log("CTC Calculations ->", testObj)
-                    console.log("grade ->", CTCcalculation['candidateGrade'])
-                    console.log("band ->", CTCcalculation['candidateBand'])
+                    // CTCcalculation['basicPercentage'] = perc
+                    // CTCcalculation['basicSal_mon'] = basic
+                    // CTCcalculation['carAllowance_mon'] = sdetails[index][3]
+                    // CTCcalculation['houseAllowance_mon'] = housing
+                    // CTCcalculation['specialAllowance_mon'] = 0
+                    // CTCcalculation['positionAllowance_mon'] = sdetails[index][0] + sdetails[index][1] + sdetails[index][2] + sdetails[index][4] + sdetails[index][5] + sdetails[index][6]
+                    // CTCcalculation['subTotalA_mon'] = total
+                    // CTCcalculation['basicSal_ann'] = basic * 12
+                    // CTCcalculation['carAllowance_ann'] = sdetails[index][3] * 12
+                    // CTCcalculation['houseAllowance_ann'] = housing * 12
+                    // CTCcalculation['specialAllowance_ann'] = 0 * 12
+                    // CTCcalculation['positionAllowance_ann'] = CTCcalculation['positionAllowance_mon'] * 12
+                    // CTCcalculation['subTotalA_ann'] = total * 12
+                    // CTCcalculation['candidateGrade'] = grade
+                    // CTCcalculation['candidateBand'] = band
+                    // CTCcalculation['maintenanceUtilityAllow_mon'] = sdetails[index][0]
+                    // CTCcalculation['maintenanceUtilityAllow_ann'] = sdetails[index][0] * 12
+                    // CTCcalculation['schoolAssistAllow_mon'] = sdetails[index][2]
+                    // CTCcalculation['schoolAssistAllow_ann'] = sdetails[index][2] * 12
+                    // CTCcalculation['vacationTicketAllow_mon'] = sdetails[index][1]
+                    // CTCcalculation['vacationTicketAllow_ann'] = sdetails[index][1] * 12
+                    // CTCcalculation['mobileAllow_mon'] = sdetails[index][6]
+                    // CTCcalculation['mobileAllow_ann'] = sdetails[index][6] * 12
+                    // CTCcalculation['mileagesAllow_mon'] = sdetails[index][5] 
+                    // CTCcalculation['mileagesAllow_ann'] = sdetails[index][5] * 12
+                    // CTCcalculation['vehicleInsuranceAllow_mon'] = sdetails[index][4]
+                    // CTCcalculation['vehicleInsuranceAllow_ann'] = sdetails[index][4] * 12
+                    // const testObj = JSON.parse(JSON.stringify(CTCcalculation))
+                    // console.log("CTC Calculations index ->", index)
+                    // console.log("CTC Calculations ->", testObj)
+                    // console.log("grade ->", CTCcalculation['candidateGrade'])
+                    // console.log("band ->", CTCcalculation['candidateBand'])
                 });
 
                 
@@ -299,9 +331,9 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                     for (var i = pneg; i <= pneg; i++) {
                         perc = i;
                         basic = (package * i) / 100;
-                    if (basic > 20000) {
-                        basic = 20000;
-                        perc = ((20000 / package) * 100).toFixed(2);
+                    if (basic > 55945) {
+                        basic = 55945;
+                        perc = ((55945 / package) * 100).toFixed(2);
                     }
                     housing = basic * 0.25;
 
@@ -413,20 +445,20 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
 	$mj("#calculateButton").click(function(event) {
 		event.preventDefault();
 		var offerCtc = $mj("input[name='inputCTC_ann']").val()
-		var negativeDiff = $mj("input[name='negativeDiff']").val() > 0 ? ($mj("input[name='negativeDiff']").val() * -1).toString() : $mj("input[name='negativeDiff']").val();
-        var positiveDiff = $mj("input[name='positiveDiff']").val();
         var minBasicP = $mj("input[name='minBasicP']").val();
         var maxBasicP = $mj("input[name='maxBasicP']").val();
-        console.log(negativeDiff)
+        if (offerCtc.indexOf(",") > -1) {
+            offerCtc = offerCtc.replace(",", "")
+        }
+        if (minBasicP.indexOf(",") > -1) {
+            minBasicP = minBasicP.replace(",", "")
+        }
+        if (maxBasicP.indexOf(",") > -1) {
+            maxBasicP = maxBasicP.replace(",", "")
+        }
         if (offerCtc.trim() == "") {
             alert("Please enter Offered CTC!");
         }
-        else if (negativeDiff.trim() == "") {
-            alert("Please enter Negative Difference!");
-        }
-        else if (positiveDiff.trim() == "") {
-            alert("Please enter Positive Difference!");
-        }	 
         else if (minBasicP.trim() == "") {
             alert("Please enter Minimum Basic Percentage!");
         }	 
@@ -436,12 +468,6 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
         else if (!$mj.isNumeric(offerCtc)) {
             alert("Please enter a Numeric Value (Offered CTC)!");
         }
-        else if (!$mj.isNumeric(negativeDiff)) {
-            alert("Please enter a Numeric Value (Negative Difference)!");
-        }	
-        else if (!$mj.isNumeric(positiveDiff)) {
-            alert("Please enter a Numeric Value (Positive Difference)!");
-        }	 
         else if (!$mj.isNumeric(minBasicP)) {
             alert("Please enter a Numeric Value (Minimum Basic Percentage)!");
         }	 
@@ -450,10 +476,9 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
         }	  
         else 
         {
-            var sal  = calcCTC(offerCtc, negativeDiff, positiveDiff, minBasicP, maxBasicP);
+            var sal  = calcCTC(offerCtc, minBasicP, maxBasicP);
             $mj("input[name='candidateBand']").val(sal['candidateBand'])
             $mj("input[name='candidateGrade']").val(sal['candidateGrade'])
-            // $mj("input[name='inputCTC_ann']").val(sal['subTotalA_mon'])
             $mj("input[name='basicSal_mon']").val(sal['basicSal_mon'])
             $mj("input[name='basicSal_ann']").val(sal['basicSal_ann'])
             $mj("input[name='carAllowance_mon']").val(sal['carAllowance_mon'])
