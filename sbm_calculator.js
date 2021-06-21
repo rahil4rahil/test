@@ -402,8 +402,6 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
                         }
                     best_val['total'] += best_val['diff'];
                     var best_grade = best_val['grade'];
-                    // $mj('#details-table > tbody:last').append('<tr><th scope="row">' + band + '</th><td>' + best_val['grade'] + '</td><td>' + best_val['basic'] + '</td><td>' + best_val['percent'] + '%</td><td>' + best_val['housing'] + '</td><td>' + sdetails[best_grade - 1][0] + '</td><td>' + sdetails[best_grade - 1][1] + '</td><td>' + sdetails[best_grade - 1][2] + '</td><td>' + sdetails[best_grade - 1][3] + '</td><td>' + sdetails[best_grade - 1][4] + '</td><td>' + sdetails[best_grade - 1][5] + '</td><td>' + sdetails[best_grade - 1][6] + '</td><td>' + best_val['diff'] + '</td><td>' + best_val['total'] + '</td><td>0</td></tr>');
-                    // $mj('#special-allow-label').text(best_val['diff']);
                     best = true;
                     console.log("With Special Allowance")
                     CTCcalculation['basicPercentage'] = best_val['percent']
@@ -504,6 +502,7 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
             $mj("input[name='vehicleInsuranceAllow_mon']").val(sal['vehicleInsuranceAllow_mon'])
             $mj("input[name='vehicleInsuranceAllow_ann']").val(sal['vehicleInsuranceAllow_ann'])
             $mj("input[name='basicPercentage']").val(sal['basicPercentage'])
+
             for (var key in sal) {
                 console.log(key)
                 let id = $mj("[name='"+ key +"']").attr("id")
@@ -512,4 +511,22 @@ return new Za.prototype.init(a,b,c,d,e)}m.Tween=Za,Za.prototype={constructor:Za,
             }   
         }
     });
+    console.log($mj("select[name='offeredBand']"))
+    var offeredBandSelect = $mj("select[name='offeredBand']")
+    $mj(offeredBandSelect.change(function() {
+        var bandMatched = false
+        var offeredBand = offeredBandSelect.children("option:selected").text()
+        console.log(offeredBand)
+        var candidateBandArray = $mj("input[name='candidateBand']").val().split(",")
+        console.log("Band List" + candidateBandArray)
+        candidateBandArray.forEach(function(val) {
+            if (val.trim() == offeredBand) {
+                bandMatched = true
+            }
+        })
+        if (!bandMatched) {
+            alert("Offered Band should be from Suggested Band")
+            offeredBandSelect.val("")
+        }
+    }))
 });
